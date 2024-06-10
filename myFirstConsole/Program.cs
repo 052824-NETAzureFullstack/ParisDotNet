@@ -17,7 +17,7 @@
 
         Random rand = new Random();
         string flipResult;
-        string again;
+        string? again;
         int value = rand.Next();
         int remainder = value % 2;
     
@@ -31,11 +31,8 @@
     }
 
     public static string Register(){
-        string userName;
         Console.WriteLine("Please your name: ");
-        userName =  Console.ReadLine();
-
-        return userName;
+        return Console.ReadLine();
     }
 
 
