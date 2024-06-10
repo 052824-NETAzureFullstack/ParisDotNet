@@ -17,6 +17,7 @@ public class HotCold {
 
         Console.WriteLine("Please your name: ");
         name = Console.ReadLine();
+
         while(Run(name)){}
        
     }
@@ -39,7 +40,7 @@ public class HotCold {
         Console.WriteLine("[2] - Meh (Range 0 - 20)");
         Console.WriteLine("[3] - Impossible (Range 30 - 100)\n");
 
-        Console.WriteLine("Please select your dificulty level (Enter 1, 2, or 3): ");
+        Console.WriteLine("Please select your difficulty level (Enter 1, 2, or 3): ");
 
         try{
             difficulty = Int32.Parse(Console.ReadLine());
@@ -101,12 +102,11 @@ public class HotCold {
         Console.WriteLine(name + "'s Guess =  " + userGuess); 
 
         //Compares user vs computer guess and outputs all results
-        int mid = end - start;
-        if (userGuess > mid){
+        if (userGuess > computerGuess){
             Console.WriteLine("\nTOO HIGH!");
-        } else if (userGuess < mid){
+        } else if (userGuess < computerGuess){
             Console.WriteLine("\nTOO LOW!");
-        } else {
+        } else if (userGuess == computerGuess){
             Console.WriteLine("\nCONGRATULATIONS! YOU GOT IT!");
         }
 
