@@ -1,0 +1,14 @@
+/Users/parisbg/Desktop/Chevron/code/Revature/wk3/net/myFirstConsole/bin/Debug/net8.0/myFirstConsole
+/Users/parisbg/Desktop/Chevron/code/Revature/wk3/net/myFirstConsole/bin/Debug/net8.0/myFirstConsole.deps.json
+/Users/parisbg/Desktop/Chevron/code/Revature/wk3/net/myFirstConsole/bin/Debug/net8.0/myFirstConsole.runtimeconfig.json
+/Users/parisbg/Desktop/Chevron/code/Revature/wk3/net/myFirstConsole/bin/Debug/net8.0/myFirstConsole.dll
+/Users/parisbg/Desktop/Chevron/code/Revature/wk3/net/myFirstConsole/bin/Debug/net8.0/myFirstConsole.pdb
+/Users/parisbg/Desktop/Chevron/code/Revature/wk3/net/myFirstConsole/obj/Debug/net8.0/myFirstConsole.GeneratedMSBuildEditorConfig.editorconfig
+/Users/parisbg/Desktop/Chevron/code/Revature/wk3/net/myFirstConsole/obj/Debug/net8.0/myFirstConsole.AssemblyInfoInputs.cache
+/Users/parisbg/Desktop/Chevron/code/Revature/wk3/net/myFirstConsole/obj/Debug/net8.0/myFirstConsole.AssemblyInfo.cs
+/Users/parisbg/Desktop/Chevron/code/Revature/wk3/net/myFirstConsole/obj/Debug/net8.0/myFirstConsole.csproj.CoreCompileInputs.cache
+/Users/parisbg/Desktop/Chevron/code/Revature/wk3/net/myFirstConsole/obj/Debug/net8.0/myFirstConsole.dll
+/Users/parisbg/Desktop/Chevron/code/Revature/wk3/net/myFirstConsole/obj/Debug/net8.0/refint/myFirstConsole.dll
+/Users/parisbg/Desktop/Chevron/code/Revature/wk3/net/myFirstConsole/obj/Debug/net8.0/myFirstConsole.pdb
+/Users/parisbg/Desktop/Chevron/code/Revature/wk3/net/myFirstConsole/obj/Debug/net8.0/myFirstConsole.genruntimeconfig.cache
+/Users/parisbg/Desktop/Chevron/code/Revature/wk3/net/myFirstConsole/obj/Debug/net8.0/ref/myFirstConsole.dll
