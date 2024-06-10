@@ -2,7 +2,7 @@
     Hot or Cold - The classic "hot or cold" game, but with numbers. 
     The computer generates a random number, and the player has to make guesses until they correctly guess the random number. 
     The computer can only tell the player if they guessed too high, too low, or correctly. 
-    Challenge: Allow the player to select the possible number range (ie. 3 - 9m 0 - 20, 30 - 100) to choose their own difficulty.
+    Challenge: Allow the player to select the possible number range (ie. 3 - 9, 0 - 20, 30 - 100) to choose their own difficulty.
 */
 
 using System;
@@ -17,11 +17,7 @@ public class HotCold {
 
         Console.WriteLine("Please your name: ");
         name = Console.ReadLine();
-
-
-        while(Run(name)){
-
-        }
+        while(Run(name)){}
        
     }
 
@@ -31,6 +27,7 @@ public class HotCold {
         (int, int, string) cupcake = (3,9,"Cupcake"); 
         (int, int, string) meh = (0,20,"Meh"); 
         (int, int, string) impossible = (30,100,"Impossible"); 
+
         Dictionary<int,(int,int,string)> levels = new Dictionary<int,(int,int,string)>();
         levels.Add(1, cupcake);
         levels.Add(2, meh);
@@ -43,6 +40,7 @@ public class HotCold {
         Console.WriteLine("[3] - Impossible (Range 30 - 100)\n");
 
         Console.WriteLine("Please select your dificulty level (Enter 1, 2, or 3): ");
+
         try{
             difficulty = Int32.Parse(Console.ReadLine());
         } catch(Exception){
@@ -61,7 +59,9 @@ public class HotCold {
     // UserGuess method: Asks user to input an int as a prediction, uses try/catch statements to handle various incorrect user inputs
     public static int UserGuess(string name, int start, int end, string difficulty){
         int prediction = -1;
-        int mid = start - end;
+
+        //INCORRECT NOT MIDPOINT BUT RATHER HOW FAR IS USER GUESS FROM AI GUESS!?!?
+        int mid = (start + end) /2;
 
         Console.WriteLine("\nLevel " + difficulty + ": Enter any number from " + start + "-" + end + " (Inclusive):");
 
@@ -85,6 +85,7 @@ public class HotCold {
         int userGuess;
         int computerGuess;
         string again;
+        
 
         //Gets user input and translates to a difficulty range
         var (start, end, difficulty) = DifficultySelector(name);
@@ -114,7 +115,6 @@ public class HotCold {
 
         return (again == "y" || again == "Y" || again == "Yes" || again == "YES");
     }
-
 
 }
 
