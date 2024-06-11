@@ -2,6 +2,7 @@
 
 //PreProcessing
 -List difficulty splitter should be 6
+-remove duplicates
 -Sort words by count
 -format vocab words into 3 dif files or categories based on length
 -Convert notes vocab list into .txt file (or read in as is)
@@ -40,12 +41,12 @@ public class HangMan {
 
     public static void Main(string[] args){
         List<string> words;
+
         words = PreProcessTxtFile("-");
 
-        Console.WriteLine("STARTING SORT!");
+        //Sort by count and then divide each section by 6 to separate into appropriate difficulty list (if shortest is still 5-17)
         words.Sort((a,b) => a.Length - b.Length);
-        Console.WriteLine("ENDING SORT!");
-
+        
         for (int i = 0; i < words.Count(); i++){
             Console.WriteLine(words[i]);
         }
@@ -67,8 +68,9 @@ public class HangMan {
             do {
                 line = sr.ReadLine();
                 word = line.Split(deliminator)[0];
-                if (word.Count() != 0){words.Add(word);}
-                //Console.WriteLine(word.Count());
+
+                //Prevent duplicates and empty spaces from going in list
+                if (word.Count() != 0 && !words.Contains(word)){ words.Add(word); }
 
             } while (line != null);
 

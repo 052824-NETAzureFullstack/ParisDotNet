@@ -1,5 +1,4 @@
 Flippant - Not showing a serious or respectful attitude.
-Anthropomorphic - having human characteristics
 Abhorrent - inspiring disgust and loathing; repugnant.
 Axiom - a statement or proposition which is regarded as being established, accepted, or self-evidently true.
 nuance - a subtle difference in shade of meaning, expression, or sound.
@@ -9,7 +8,6 @@ Precocious - showing the qualities or abilities of an adult at an unusually earl
 Tenet - a principle or belief, especially one of the main principles of a religion or philosophy.
 Indignant - feeling or showing anger or annoyance at what is perceived as unfair treatment.
 Apoplectic - overcome with anger; extremely indignant.
-Pithy - brief, forceful, and meaningful in expression; full of vigor, substance, or meaning
 Conjecture
 Pithy
 Aphorism
@@ -26,7 +24,6 @@ indignant
 Taxonomy - branch of science concerned with classification, mainly of organisms.
 Existential - relating to existence
 Voracious 
-lemmatization,
 Diminutive - extremely or unusually small
 Neophyte - A person who is new to a skill, subject, or belief
 Antithesis - A person or thing that is the direct opposite of someone/something else
@@ -130,7 +127,6 @@ Tepid - showing little enthusiasm.
 Anthropomorphic - having human characteristics.
 Irreverent - showing a lack of respect for people or things that are generally taken seriously.
 Abhorrent-inspiring disgust and loathing; repugnant.
-Axiom - a statement or proposition which is regarded as being established, accepted, or self-evidently true.
 Summarily - in a prompt or immediate manner; without the customary formalities.
 Colloquially - in the language of ordinary or familiar conversation; informally.
 Neophyte - a person who is new to a subject, skill, or belief.
