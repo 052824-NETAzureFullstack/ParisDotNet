@@ -105,7 +105,7 @@ public class FizzBuzz {
         HashSet<string> userOptionsSet = new HashSet<string>();
         string userAnswer;
 
-        for (int i = min; i < max+1; i++){
+        for (int i = min+1; i < max+2; i++){
             string cpuOutput = "";
             if (By3(i)){cpuOutput += "Fizz";}
             if (By5(i)){cpuOutput += "Buzz";}
@@ -116,8 +116,9 @@ public class FizzBuzz {
             }
 
             if (isUser){
+                Console.WriteLine("CPU TURN: " + (i-1).ToString());
                 userAnswer = UserPlayMenu(i,cpuOutput,min, max);
-
+                
                 if (userAnswer == cpuOutput){
                     Console.WriteLine("CORRECT!");
                     Console.WriteLine(userAnswer);
@@ -136,28 +137,29 @@ public class FizzBuzz {
 
     public static (int, int) UserSetRange(){
         string temp;
-        int start;
-        int end;
+        int min;
+        int max;
 
         Console.WriteLine("To play FizzBuzz, select a range of numbers to start!");
         Console.Write("First enter the starting number of the range: ");
         temp = Console.ReadLine();
-        
-        if (!IsValidIntInput(temp,0,0)){
+
+        do {
+            Console.Write("First enter the starting number of the range: ");
             temp = Console.ReadLine();
-        }
 
-        start = Int32.Parse(temp);
+        } while (!IsValidIntInput(temp, 0, 0));
+    
+        min = Int32.Parse(temp);
 
-        Console.Write("Great! Now enter the ending number of the range: ");
-        temp = Console.ReadLine();
-
-        if (!IsValidIntInput(temp,0,0)){
+        do {
+            Console.Write("Great! Now enter the ending number of the range: ");
             temp = Console.ReadLine();
-        }
 
-        end = Int32.Parse(temp);
+        } while (!IsValidIntInput(temp, 0, 0));
 
-        return (start, end);
+        max = Int32.Parse(temp);
+
+        return (min, max);
     }
 }
