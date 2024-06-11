@@ -1,6 +1,7 @@
 ﻿/*To DO
 
 //PreProcessing
+-List difficulty splitter should be 6
 -Sort words by count
 -format vocab words into 3 dif files or categories based on length
 -Convert notes vocab list into .txt file (or read in as is)
@@ -38,13 +39,21 @@ using System.IO;
 public class HangMan {
 
     public static void Main(string[] args){
-        //Round 1
-        PreProcessTxtFile("-");
+        List<string> words;
+        words = PreProcessTxtFile("-");
 
+        Console.WriteLine("STARTING SORT!");
+        words.Sort((a,b) => a.Length - b.Length);
+        Console.WriteLine("ENDING SORT!");
 
+        for (int i = 0; i < words.Count(); i++){
+            Console.WriteLine(words[i]);
+        }
+
+        
     }
 
-    public static void PreProcessTxtFile(string deliminator){
+    public static List<string> PreProcessTxtFile(string deliminator){
         //https://learn.microsoft.com/en-us/troubleshoot/developer/visualstudio/csharp/language-compilers/read-write-text-file
         String line;
         String word;
@@ -53,30 +62,35 @@ public class HangMan {
         
         try {
             StreamReader sr = new StreamReader(rawTxtPath);
-            line = sr.ReadLine();
 
-            while (line != null){
+            //ERROR: Exception: Object reference not set to an instance of an object.
+            do {
+                line = sr.ReadLine();
                 word = line.Split(deliminator)[0];
                 if (word.Count() != 0){words.Add(word);}
-                Console.WriteLine(word.Count());
-                line = sr.ReadLine();
-            }
+                //Console.WriteLine(word.Count());
 
-            Testing(words);
-            
+            } while (line != null);
+
+            //Testing(words);
             sr.Close();
             Console.ReadLine();
+
         } catch(Exception e){
             Console.WriteLine("Exception: " + e.Message);
 
         } finally {
             Console.WriteLine("Executing finally block.");
         }
+
+        return words;
     }
+
 
     public static void Testing(List<string> words){
         //What is the longest and shortest count of a particular list in the word?
-        //Need to sort list be word.Count
+        //Need to sort list by word.Count
+
         //int min, max = words[0].Count();
         int min = words[0].Count();
         int max = words[0].Count();
@@ -89,12 +103,10 @@ public class HangMan {
             if (word.Count() > max){
                 max = word.Count();
             }
-
         }
 
         Console.WriteLine($"\n\nmin = {min}");
         Console.WriteLine($"max = {max}");
-
     }
 }
 

@@ -1,4 +1,5 @@
 Bugs:
 
-N/A 
+PreprocessTxtFile(): Try/Catch - while loop (the last line == null which is the breaking condition but also seems to thrown an exception...             //ERROR: Exception: Object reference not set to an instance of an object.
+
 
