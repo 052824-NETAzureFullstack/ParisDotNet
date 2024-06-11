@@ -62,29 +62,43 @@ public class FizzBuzz {
         string userInput;
         int rando;
 
-        //menuList.Add(i.ToString());
         if (i.ToString() != cpuAnswer){
             menuList.Add(cpuAnswer);
-        }
+        } 
 
         //Create a unique menu with 3 values: 2 dummy (but realistically possible) vals, and the answer
-        while (menuList.Count < 5){
+        while (menuList.Count < 4){
             rando = new Random().Next(0,userOptions.Count);
 
-            if (userOptions[rando] != cpuAnswer){
+            if (!menuList.Contains(userOptions[rando])){
                 menuList.Add(userOptions[rando]);
             }
         }
 
         //Construct the final menu as an array starting with the integer option, then a random string from the previously constructed list, and finally the last two remaining values
         finalList.Add(i.ToString());
-        rando = new Random().Next(0,2);
-        finalList.Add(menuList[rando]);
-        menuList.RemoveAt(rando);
+        finalList.Add(menuList[new Random().Next(0,3)]);
+        menuList.Remove(finalList[1]);
         finalList.Add(menuList[0]);
         finalList.Add(menuList[1]);
 
         
+        for (int x = 0; x < userOptions.Count; x++){
+            Console.WriteLine(userOptions[x]);
+        }
+
+        Console.WriteLine("");
+
+        for (int x = 0; x < menuList.Count; x++){
+            Console.WriteLine(menuList[x]);
+        }
+
+        Console.WriteLine("");
+
+        for (int x = 0; x < finalList.Count; x++){
+            Console.WriteLine(finalList[x]);
+        }
+
         Console.WriteLine("***********Options***********" );
         for (int x = 0; x < finalList.Count; x++) {
              Console.WriteLine($"[{x}] - " + finalList[x]);
