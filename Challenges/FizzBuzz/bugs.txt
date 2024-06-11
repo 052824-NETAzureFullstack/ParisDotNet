@@ -1,4 +1,3 @@
 Bugs:
 
--User Menu still displays duplicates despite using a HashSet! Check implementation or is there a comparator that needs to go with it?
-
+None

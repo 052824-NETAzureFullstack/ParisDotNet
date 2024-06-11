@@ -82,23 +82,6 @@ public class FizzBuzz {
         finalList.Add(menuList[0]);
         finalList.Add(menuList[1]);
 
-        
-        for (int x = 0; x < userOptions.Count; x++){
-            Console.WriteLine(userOptions[x]);
-        }
-
-        Console.WriteLine("");
-
-        for (int x = 0; x < menuList.Count; x++){
-            Console.WriteLine(menuList[x]);
-        }
-
-        Console.WriteLine("");
-
-        for (int x = 0; x < finalList.Count; x++){
-            Console.WriteLine(finalList[x]);
-        }
-
         Console.WriteLine("***********Options***********" );
         for (int x = 0; x < finalList.Count; x++) {
              Console.WriteLine($"[{x}] - " + finalList[x]);
