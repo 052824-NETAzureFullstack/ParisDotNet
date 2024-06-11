@@ -20,7 +20,7 @@ public class FizzBuzz {
         int start; 
         int end; 
         string temp;
-        string output = "   ";
+        
 
         Console.WriteLine("To play FizzBuzz, select a range of numbers to start! ");
         Console.Write("First enter the starting number of the range: ");
@@ -42,17 +42,23 @@ public class FizzBuzz {
         end = Int32.Parse(temp);
 
         for (int i = start; i < end+1; i++){
-
+            string output = "";
             if (by3(i)){output += "Fizz";}
             if (by5(i)){output += "Buzz";}
-            if (by7(i)){output += "Bang";}
+            if (by7(i)){output += "Bang";}  
+
+            if (!by3(i) && !by5(i) && !by7(i)){ 
+                Console.WriteLine(i.ToString());
+            } else {
+                Console.WriteLine(output);
+            }
+            
             
         }
     }
         public static bool by3(int num){ return (num % 3 == 0) ? true : false;}
         public static bool by5(int num){ return (num % 5 == 0) ? true : false; }
         public static bool by7(int num){ return (num % 7 == 0) ? true : false; }
-
 
     public static bool IsValidIntInput(string userInput){
         int value;
