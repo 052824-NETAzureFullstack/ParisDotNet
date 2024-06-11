@@ -56,46 +56,49 @@ public class FizzBuzz {
         return true;
     }
 
-    public static string UserPlayMenu(int i, string answer){
-        List<string> someList = new List<string>();
-        string userInput;
-     
-        someList.Add(i.ToString());
-        someList.Add(answer);
+    public static string UserPlayMenu(int i, string answer, int min, int max){
+        List<string> menuList = new List<string>();
+        List<string> finalList = new List<string>();
 
-        while (someList.Count <= 4){
-            int rando = new Random().Next(0,userOptionsList.Count);
+        string userInput;
+        int rando;
+     
+        menuList.Add(answer);
+
+        //Create a unique menu with 3 values: 2 dummy (but realistically possible) vals, and the answer
+        while (menuList.Count < 3){
+            rando = new Random().Next(0,userOptionsList.Count);
 
             if (userOptionsList[rando] != answer){
-                someList.Add(userOptionsList[rando]);
+                menuList.Add(userOptionsList[rando]);
             }
         }
 
-        //Now we've got a list with 4 unique values: 2 dummy (but realistically possible vals), the answer, the number option
-        Console.WriteLine("***********Options***********" );
-
-
-        string[] shuffledOptions = [answer, userOptionsList[rando1],userOptionsList[rando2],userOptionsList[rando3]];
-
-
-        shuffledOptions[new Random().Next(0,3)]
-
-
-
-
+        //Construct the final menu as an array starting with the integer option, then a random string from the previously constructed list, and finally the last two remaining values
+        finalList.Add(i.ToString());
+        rando = new Random().Next(0,2);
+        finalList.Add(menuList[rando]);
+        menuList.RemoveAt(rando);
+        finalList.Add(menuList[0]);
+        finalList.Add(menuList[1]);
 
         Console.WriteLine("***********Options***********" );
-        Console.WriteLine("[0] - " + options[0]);
-        Console.WriteLine("[1] - " + options[1]);
-        Console.WriteLine("[2] - " + answer);    
-        Console.WriteLine("[3] - " + i.ToString());
+        for (int x = 0; x < finalList.Count; x++) {
+             Console.WriteLine("[{x}] - " + finalList[x]);
+        }
 
         Console.Write("Please select a number option between 0-3: ");
         userInput = Console.ReadLine(); 
 
-        if (IsValidIntInput(userInput, start)){
-            return options[Int32.Parse(userInput)];
-        }
+        do {
+            Console.Write("Please select a number option between 0-3: ");
+            userInput = Console.ReadLine(); 
+
+        } while (!IsValidIntInput(userInput, min, max));
+  
+  
+        return finalList[Int32.Parse(userInput)];
+
     }
 
     public static HashSet<string> SimulateRun(int start, int end, bool isUser){
