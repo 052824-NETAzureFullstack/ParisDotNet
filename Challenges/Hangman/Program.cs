@@ -1,8 +1,7 @@
 ﻿/*To DO
 
 //PreProcessing
--Remove definitions
--Format file to just a separate word on each line
+-Sort words by count
 -format vocab words into 3 dif files or categories based on length
 -Convert notes vocab list into .txt file (or read in as is)
 -convert read txt file into 3 lists based on difficulty
@@ -58,10 +57,12 @@ public class HangMan {
 
             while (line != null){
                 word = line.Split(deliminator)[0];
-                words.Add(word);
-                Console.WriteLine(word);
+                if (word.Count() != 0){words.Add(word);}
+                Console.WriteLine(word.Count());
                 line = sr.ReadLine();
             }
+
+            Testing(words);
             
             sr.Close();
             Console.ReadLine();
@@ -73,8 +74,26 @@ public class HangMan {
         }
     }
 
-    public static void PreProcessTxtFile(){
-        //Blah
+    public static void Testing(List<string> words){
+        //What is the longest and shortest count of a particular list in the word?
+        //Need to sort list be word.Count
+        //int min, max = words[0].Count();
+        int min = words[0].Count();
+        int max = words[0].Count();
+
+        foreach (string word in words){
+            if (word.Count() < min){
+                min = word.Count();
+            }
+
+            if (word.Count() > max){
+                max = word.Count();
+            }
+
+        }
+
+        Console.WriteLine($"\n\nmin = {min}");
+        Console.WriteLine($"max = {max}");
 
     }
 }
