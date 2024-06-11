@@ -2,6 +2,7 @@
 
 FizzBuzz - The frustratingly common FizzBuzz game.
 The player selects a range of numbers (2 - 18) and the computer plays FizzBuzz. 
+
 It prints the number on it's own line in the output. 
 If the number is divisible by 3, replace it with "Fizz". If the number is divisible by 5, replace with with "Buzz". 
 If the number is divisible by BOTH 3 and 5, replace with with "FizzBuzz". 
@@ -15,22 +16,38 @@ using System;
 public class FizzBuzz {
 
     public static void Main(string[] args){
-        //Console.WriteLine("Hello, World!");
-        string start; 
-        string end; 
+        int start; 
+        int end; 
+        string temp;
 
         Console.WriteLine("To play FizzBuzz, select a range of numbers to start! ");
         Console.Write("First enter the starting number of the range: ");
-        start = Console.ReadLine();
+        temp = Console.ReadLine();
+
+        if (!IsValidIntInput(temp)){
+            temp = Console.ReadLine();
+        }
+
+        start = Int32.Parse(temp);
 
         Console.Write("Great! Now enter the ending number of the range: ");
-        end = Console.ReadLine();
+        temp = Console.ReadLine();
 
-        while(Run(name));
+        if (!IsValidIntInput(temp)){
+            temp = Console.ReadLine();
+        }
+
+        end = Int32.Parse(temp);
+
+        for (int i = start; i < end+1; i++){
+            Console.WriteLine(i);
+        }
+
+
        
     }
 
-    public static bool IsValidIntInput(string userInput, int min, int max){
+    public static bool IsValidIntInput(string userInput){
         int value;
 
           try{
@@ -40,12 +57,7 @@ public class FizzBuzz {
             return false;
         }
 
-        if (value < min|| value > max){
-            Console.WriteLine("Input should be only an integer value between " + min + "-" + max + " (Inclusive)! Please Try Again...\n");
-            return false;
-        } else{
-            return true;
-        }    
+        return true;
     }
 }
 
