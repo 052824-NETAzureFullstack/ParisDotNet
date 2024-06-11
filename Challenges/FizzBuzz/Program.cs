@@ -13,22 +13,24 @@ The player has to continue, either entering the word "Fizz", or selecting an opt
 */
 
 using System;
+using System.ComponentModel;
 
 public class FizzBuzz {
 
     public static void Main(string[] args){
-        int start; 
-        int end; 
-        string temp;
 
-        //GameSetup();
+        (int start, int end) = UserSetRange();
+        SimulateRun(start,end,false);
+        SimulateRun(start,end,true);
 
-       
-        }
+
+
+
     }
-        public static bool By3(int num){ return (num % 3 == 0) ? true : false;}
-        public static bool By5(int num){ return (num % 5 == 0) ? true : false;}
-        public static bool By7(int num){ return (num % 7 == 0) ? true : false;}
+    
+    public static bool By3(int num){ return (num % 3 == 0) ? true : false;}
+    public static bool By5(int num){ return (num % 5 == 0) ? true : false;}
+    public static bool By7(int num){ return (num % 7 == 0) ? true : false;}
 
     public static bool IsValidIntInput(string userInput){
         int value;
@@ -44,15 +46,15 @@ public class FizzBuzz {
     }
 
 
-    public static bool GameSetup(int i){
+    public static void GameSetup(){
         //Better idea: the game will go through the list first before allowing the user to play and input all the dif fizz/buzz/bang combination possibilites into a dictionary (because you can check each key to see whether or not that value already exists to avoid duplicates)
         //If C# has sets then a dictionary may not be necessary
 
         HashSet<string> userOptions = new HashSet<string>();
-            userOptions.Add()
+            //userOptions.Add()
     }
 
-    public static bool UserPlayMenu(int i){
+    public static void UserPlayMenu(int i){
         //There are too many different possible variations to consider them all as options. Going to have randomly give the user 4 options
         Console.WriteLine("***********Options***********" );
         Console.WriteLine("[1] - " + i.ToString());
@@ -71,18 +73,38 @@ public class FizzBuzz {
       
     }
 
-    public static bool Run(bool userRun){
-        if (userRun){
-            Console.WriteLine("To play FizzBuzz, select a range of numbers to start! ");
-            Console.Write("First enter the starting number of the range: ");
-            temp = Console.ReadLine();
-            
-            if (!IsValidIntInput(temp)){
-                temp = Console.ReadLine();
+    public static void SimulateRun(int start, int end, bool isUser){
+        HashSet<string> userOptions = new HashSet<string>();
+        for (int i = start; i < end+1; i++){
+            string output = "";
+            if (By3(i)){output += "Fizz";}
+            if (By5(i)){output += "Buzz";}
+            if (By7(i)){output += "Bang";}  
+
+            if ((!By3(i) && !By5(i) && !By7(i)) || i == 0){ 
+                output = i.ToString();
+            }
+
+            if (isUser){
+                Console.WriteLine(output);
+            } else {
+                userOptions.Add(output);
             }
         }
+    }
 
+    public static (int, int) UserSetRange(){
+        string temp;
+        int start;
+        int end;
 
+        Console.WriteLine("To play FizzBuzz, select a range of numbers to start!");
+        Console.Write("First enter the starting number of the range: ");
+        temp = Console.ReadLine();
+        
+        if (!IsValidIntInput(temp)){
+            temp = Console.ReadLine();
+        }
 
         start = Int32.Parse(temp);
 
@@ -95,23 +117,6 @@ public class FizzBuzz {
 
         end = Int32.Parse(temp);
 
-        for (int i = start; i < end+1; i++){
-            string output = "";
-            if (By3(i)){output += "Fizz";}
-            if (By5(i)){output += "Buzz";}
-            if (By7(i)){output += "Bang";}  
-
-            if ((!By3(i) && !By5(i) && !By7(i)) || i == 0){ 
-                Console.WriteLine(i.ToString());
-            } else {
-                Console.WriteLine(output);
-            }
-
-            /*
-            Console.Write("What should be next in the sequence: ");
-            UserPlayMenu();
-            Console.ReadLine();
-            */
+        return (start, end);
     }
-
 }
