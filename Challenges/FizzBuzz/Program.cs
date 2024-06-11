@@ -6,10 +6,10 @@ The player selects a range of numbers (2 - 18) and the computer plays FizzBuzz.
 It prints the number on it's own line in the output. 
 If the number is divisible by 3, replace it with "Fizz". If the number is divisible by 5, replace with with "Buzz". 
 If the number is divisible by BOTH 3 and 5, replace with with "FizzBuzz". 
-
 Challenge: Add "Bang" for numbers divisible by 7, and all the combinations of 3, 5, and 7 get the combinations of Fizz, Buzz, Bang. 
+
 Challenge: Alternate between the computer and user input to complete the game. The computer starts, printing "2". 
-The play has to continue, either entering the word "Fizz", or selecting an option from a list.
+The player has to continue, either entering the word "Fizz", or selecting an option from a list.
 */
 
 using System;
@@ -20,7 +20,6 @@ public class FizzBuzz {
         int start; 
         int end; 
         string temp;
-        
 
         Console.WriteLine("To play FizzBuzz, select a range of numbers to start! ");
         Console.Write("First enter the starting number of the range: ");
@@ -47,18 +46,16 @@ public class FizzBuzz {
             if (by5(i)){output += "Buzz";}
             if (by7(i)){output += "Bang";}  
 
-            if (!by3(i) && !by5(i) && !by7(i)){ 
+            if ((!by3(i) && !by5(i) && !by7(i)) || i == 0){ 
                 Console.WriteLine(i.ToString());
             } else {
                 Console.WriteLine(output);
             }
-            
-            
         }
     }
         public static bool by3(int num){ return (num % 3 == 0) ? true : false;}
-        public static bool by5(int num){ return (num % 5 == 0) ? true : false; }
-        public static bool by7(int num){ return (num % 7 == 0) ? true : false; }
+        public static bool by5(int num){ return (num % 5 == 0) ? true : false;}
+        public static bool by7(int num){ return (num % 7 == 0) ? true : false;}
 
     public static bool IsValidIntInput(string userInput){
         int value;
