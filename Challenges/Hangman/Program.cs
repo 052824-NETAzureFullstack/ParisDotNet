@@ -39,13 +39,17 @@ using System.IO;
 public class HangMan {
 
     public static void Main(string[] args){
-        ReadVocabTxt();
+        //Round 1
+        PreProcessTxtFile("-");
+
 
     }
 
-    public static void ReadVocabTxt(){
+    public static void PreProcessTxtFile(string deliminator){
         //https://learn.microsoft.com/en-us/troubleshoot/developer/visualstudio/csharp/language-compilers/read-write-text-file
         String line;
+        String word;
+        List<string> words = new List<string>();
         string rawTxtPath = "rawVocab.txt";
         
         try {
@@ -53,7 +57,9 @@ public class HangMan {
             line = sr.ReadLine();
 
             while (line != null){
-                Console.WriteLine(line);
+                word = line.Split(deliminator)[0];
+                words.Add(word);
+                Console.WriteLine(word);
                 line = sr.ReadLine();
             }
             
@@ -65,6 +71,11 @@ public class HangMan {
         } finally {
             Console.WriteLine("Executing finally block.");
         }
+    }
+
+    public static void PreProcessTxtFile(){
+        //Blah
+
     }
 }
 

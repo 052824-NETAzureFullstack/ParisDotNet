@@ -2,7 +2,7 @@
 Flippant - Not showing a serious or respectful attitude.
 Anthropomorphic - having human characteristics
 Abhorrent - inspiring disgust and loathing; repugnant.
- Axiom - a statement or proposition which is regarded as being established, accepted, or self-evidently true.
+Axiom - a statement or proposition which is regarded as being established, accepted, or self-evidently true.
 nuance - a subtle difference in shade of meaning, expression, or sound.
 Pernicious - having a harmful effect, especially in a gradual or subtle way.
 Dissonance - a tension or clash resulting from the combination of two disharmonious or unsuitable elements.
@@ -97,7 +97,6 @@ Ambient - relating to the immediate surroundings of something
 Aggregate - a whole formed by combining several (typically disparate) elements.
 Noxious - harmful, poisonous, or very unpleasant.
 ontological - relating to the branch of metaphysics dealing with the nature of being.
-Eidetic [memory] - relating to or denoting mental images having unusual vividness and detail, as if actually visible.
 perturbation - anxiety; mental uneasiness.
 Antithesis - a person or thing that is the direct opposite of someone or something else.
 Amenable -(of a person) open and responsive to suggestion; easily persuaded or controlled.
@@ -110,7 +109,6 @@ pedagogical - relating to teaching.
 Equivocal - open to more than one interpretation; ambiguous.
 Obfuscate - render obscure, unclear, or unintelligible.
 Analogous - comparable in certain respects, typically in a way which makes clearer the nature of the things compared.
-Affect vs Effect - Affect v effect easily get confused. Affect is usually a verb, and it means to impact or change. Effect, on the other hand, is usually a noun that you would use to indicate the result of a change.
 Modular - employing or involving a module or modules as the basis of design or construction.
 Pedantic - of or like a pedant (a person who is excessively concerned with minor details and rules or with displaying academic learning.)
 Proletariat - workers or working-class people, regarded collectively (often used with reference to Marxism).
