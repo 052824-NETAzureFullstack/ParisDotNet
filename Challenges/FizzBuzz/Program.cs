@@ -6,6 +6,7 @@ The player selects a range of numbers (2 - 18) and the computer plays FizzBuzz.
 It prints the number on it's own line in the output. 
 If the number is divisible by 3, replace it with "Fizz". If the number is divisible by 5, replace with with "Buzz". 
 If the number is divisible by BOTH 3 and 5, replace with with "FizzBuzz". 
+
 Challenge: Add "Bang" for numbers divisible by 7, and all the combinations of 3, 5, and 7 get the combinations of Fizz, Buzz, Bang. 
 Challenge: Alternate between the computer and user input to complete the game. The computer starts, printing "2". 
 The play has to continue, either entering the word "Fizz", or selecting an option from a list.
@@ -40,14 +41,16 @@ public class FizzBuzz {
         end = Int32.Parse(temp);
 
         for (int i = start; i < end+1; i++){
-            if (i % 3 == 0){
+
+            if (i % 3 == 0 && i % 5 == 0){
+                Console.WriteLine("FizzBuzz");
+
+            } else if (i % 3 == 0){
                 Console.WriteLine("Fizz");
 
             } else if (i % 5 == 0){
                 Console.WriteLine("Buzz");
 
-            } else if (i % 3 == 0 && i % 5 == 0){
-                Console.WriteLine("FizzBuzz");
             } else {
                 Console.WriteLine(i);
             }
