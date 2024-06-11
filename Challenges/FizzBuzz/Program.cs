@@ -23,44 +23,7 @@ public class FizzBuzz {
 
         //GameSetup();
 
-        Console.WriteLine("To play FizzBuzz, select a range of numbers to start! ");
-        Console.Write("First enter the starting number of the range: ");
-        temp = Console.ReadLine();
-
-        if (!IsValidIntInput(temp)){
-            temp = Console.ReadLine();
-        }
-
-        start = Int32.Parse(temp);
-
-        Console.Write("Great! Now enter the ending number of the range: ");
-        temp = Console.ReadLine();
-
-        if (!IsValidIntInput(temp)){
-            temp = Console.ReadLine();
-        }
-
-        end = Int32.Parse(temp);
-
-        for (int i = start; i < end+1; i++){
-            string output = "";
-            if (By3(i)){output += "Fizz";}
-            if (By5(i)){output += "Buzz";}
-            if (By7(i)){output += "Bang";}  
-
-            if ((!By3(i) && !By5(i) && !By7(i)) || i == 0){ 
-                Console.WriteLine(i.ToString());
-            } else {
-                Console.WriteLine(output);
-            }
-
-            Console.Write("What should be next in the sequence: ");
-            UserPlayMenu();
-
-            Console.ReadLine();
-
-            
-            
+       
         }
     }
         public static bool By3(int num){ return (num % 3 == 0) ? true : false;}
@@ -107,4 +70,48 @@ public class FizzBuzz {
         Dictionary<int,string> userOptions = new Dictionary<int,string>();
       
     }
+
+    public static bool Run(bool userRun){
+        if (userRun){
+            Console.WriteLine("To play FizzBuzz, select a range of numbers to start! ");
+            Console.Write("First enter the starting number of the range: ");
+            temp = Console.ReadLine();
+            
+            if (!IsValidIntInput(temp)){
+                temp = Console.ReadLine();
+            }
+        }
+
+
+
+        start = Int32.Parse(temp);
+
+        Console.Write("Great! Now enter the ending number of the range: ");
+        temp = Console.ReadLine();
+
+        if (!IsValidIntInput(temp)){
+            temp = Console.ReadLine();
+        }
+
+        end = Int32.Parse(temp);
+
+        for (int i = start; i < end+1; i++){
+            string output = "";
+            if (By3(i)){output += "Fizz";}
+            if (By5(i)){output += "Buzz";}
+            if (By7(i)){output += "Bang";}  
+
+            if ((!By3(i) && !By5(i) && !By7(i)) || i == 0){ 
+                Console.WriteLine(i.ToString());
+            } else {
+                Console.WriteLine(output);
+            }
+
+            /*
+            Console.Write("What should be next in the sequence: ");
+            UserPlayMenu();
+            Console.ReadLine();
+            */
+    }
+
 }
