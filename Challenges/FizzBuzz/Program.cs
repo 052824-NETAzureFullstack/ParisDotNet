@@ -108,22 +108,18 @@ public class FizzBuzz {
         HashSet<string> userOptionsSet = new HashSet<string>();
         string userAnswer;
 
-        for (int i = min+1; i < max+2; i++){
-            if (i == 0 && isUser){
-                Console.WriteLine("\nCPU TURN: " + (i).ToString());
-                continue;
-            }
+        if (isUser){
+            Console.WriteLine("\nCPU TURN: " + (min).ToString());
+        }
 
-            if (i%2==0){
-                Console.WriteLine("\nCPU TURN: " + (i).ToString());
-            }
+        for (int i = min+1; i < max+1; i++){
 
             string cpuOutput = "";
             if (By3(i)){cpuOutput += "Fizz";}
             if (By5(i)){cpuOutput += "Buzz";}
             if (By7(i)){cpuOutput += "Bang";} 
 
-            if ((!By3(i) && !By5(i) && !By7(i))){ 
+            if ((!By3(i) && !By5(i) && !By7(i)) || i == 0){ 
                 cpuOutput = i.ToString();
             }
 
@@ -132,7 +128,7 @@ public class FizzBuzz {
                 
                 if (userAnswer == cpuOutput){
                     Console.WriteLine($"\n {userAnswer} IS CORRECT!");
-                    continue;
+                    Console.WriteLine("\nCPU TURN: " + (cpuOutput).ToString());
                 } else {
                     Console.WriteLine("INCORRECT... GAME OVER....");
                     break;
