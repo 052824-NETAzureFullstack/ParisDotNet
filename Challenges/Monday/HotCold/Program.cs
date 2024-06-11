@@ -18,7 +18,7 @@ public class HotCold {
         Console.WriteLine("Please your name: ");
         name = Console.ReadLine();
 
-        while(Run(name)){}
+        while(Run(name));
        
     }
 
@@ -58,35 +58,51 @@ public class HotCold {
     }
 
     // UserGuess method: Asks user to input an int as a prediction, uses try/catch statements to handle various incorrect user inputs
-    public static int UserGuess(string name, int start, int end, string difficulty){
-        int prediction = -1;
+    public static bool UserGuess(int min, int max, string difficulty, int computerGuess){
+        string userInput;
+        string selectNewLevel;
+        string again;
+        int userPrediction;
 
-        //INCORRECT NOT MIDPOINT BUT RATHER HOW FAR IS USER GUESS FROM AI GUESS!?!?
-        int mid = (start + end) /2;
+        Console.WriteLine("\nLevel " + difficulty + ": Enter any number from " + min + "-" + max + " (Inclusive):");
+        userInput = Console.ReadLine();
 
-        Console.WriteLine("\nLevel " + difficulty + ": Enter any number from " + start + "-" + end + " (Inclusive):");
-
-         try{
-            prediction = Int32.Parse(Console.ReadLine());
-        } catch(Exception){
-            Console.WriteLine("\nInput should be only an integer (whole number) between " + start + "-" + end + " (Inclusive)! Please Try Again...\n");
-            UserGuess(name, start, end, difficulty);
+        if (!IsValidIntInput(userInput, min, max)){
+            UserGuess(min, max, difficulty, computerGuess);
         }
 
-        
-        if (prediction < mid|| prediction > end){
-            Console.WriteLine("Input should be only an integer (whole number) between " + start + "-" + end + " (Inclusive)! Please Try Again...\n");
-            UserGuess(name, start, end, difficulty);
+        userPrediction = Int32.Parse(userInput);
+
+        //Compares user vs computer guess and outputs all results
+        if (userPrediction > computerGuess){
+            Console.WriteLine("\nTOO HIGH!");
+        } else if (userPrediction < computerGuess){
+            Console.WriteLine("\nTOO LOW!");
+        } else if (userPrediction == computerGuess){
+            Console.WriteLine("\nAI Guess = " + computerGuess);
+            Console.WriteLine("CONGRATULATIONS! YOU GOT IT!");
+            Console.WriteLine("\nPlay Another Level(y/n)?"); 
+            selectNewLevel = Console.ReadLine();
+            return (selectNewLevel == "y" || selectNewLevel == "Y" || selectNewLevel == "Yes" || selectNewLevel == "YES");
         }
 
-         return prediction;
+        Console.WriteLine("Try again(y/n)"); 
+        again = Console.ReadLine();
+
+        if (int.TryParse(again, out int value)){
+            Console.WriteLine("\nPlease enter only either \"y\" or \"n\""); 
+            Console.WriteLine("Try again(y/n)"); 
+            again = Console.ReadLine();
+        }
+
+        if (again == "y"){   
+           UserGuess(min, max, difficulty, computerGuess);
+        }
+        return false;
     }
 
     public static bool Run(string name){
-        int userGuess;
         int computerGuess;
-        string again;
-        
 
         //Gets user input and translates to a difficulty range
         var (start, end, difficulty) = DifficultySelector(name);
@@ -94,26 +110,26 @@ public class HotCold {
         //Converts user difficulty range into a random computer guess (inclusive)
         computerGuess = new Random().Next(start,end);
 
-        //Asks user for guess as input
-        userGuess = UserGuess(name, start, end, difficulty);
+        //Asks user for guess as input, compute the results, allow user to quit/play again/select new level
+        return UserGuess(start, end, difficulty, computerGuess);
+    }
 
-        //Output both guesses (AI and Computer)
-        Console.WriteLine("\nAI Guess = " + computerGuess);
-        Console.WriteLine(name + "'s Guess =  " + userGuess); 
+    public static bool IsValidIntInput(string userInput, int min, int max){
+        int value;
 
-        //Compares user vs computer guess and outputs all results
-        if (userGuess > computerGuess){
-            Console.WriteLine("\nTOO HIGH!");
-        } else if (userGuess < computerGuess){
-            Console.WriteLine("\nTOO LOW!");
-        } else if (userGuess == computerGuess){
-            Console.WriteLine("\nCONGRATULATIONS! YOU GOT IT!");
+          try{
+            value = Int32.Parse(userInput);
+        } catch(Exception){
+            Console.WriteLine("\nInput type should be only an integer value,  Please check your entry and try Again...\n");
+            return false;
         }
 
-        Console.WriteLine("\nWould you like to try again(y/n)?"); 
-        again = Console.ReadLine();
-
-        return (again == "y" || again == "Y" || again == "Yes" || again == "YES");
+        if (value < min|| value > max){
+            Console.WriteLine("Input should be only an integer value between " + min + "-" + max + " (Inclusive)! Please Try Again...\n");
+            return false;
+        } else{
+            return true;
+        }    
     }
 
 }
