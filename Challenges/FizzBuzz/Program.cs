@@ -21,6 +21,8 @@ public class FizzBuzz {
         int end; 
         string temp;
 
+        //GameSetup();
+
         Console.WriteLine("To play FizzBuzz, select a range of numbers to start! ");
         Console.Write("First enter the starting number of the range: ");
         temp = Console.ReadLine();
@@ -81,8 +83,10 @@ public class FizzBuzz {
 
     public static bool GameSetup(int i){
         //Better idea: the game will go through the list first before allowing the user to play and input all the dif fizz/buzz/bang combination possibilites into a dictionary (because you can check each key to see whether or not that value already exists to avoid duplicates)
-        
+        //If C# has sets then a dictionary may not be necessary
 
+        HashSet<string> userOptions = new HashSet<string>();
+            userOptions.Add()
     }
 
     public static bool UserPlayMenu(int i){
@@ -101,11 +105,6 @@ public class FizzBuzz {
         string[] weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
         Dictionary<int,string> userOptions = new Dictionary<int,string>();
-        userOptions.Add(1,)
-        userOptions.Add(2,)
-        userOptions.Add(3,)
-        userOptions.Add(4,)
-
-
+      
     }
 }
