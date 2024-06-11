@@ -42,20 +42,28 @@ public class FizzBuzz {
 
         for (int i = start; i < end+1; i++){
             string output = "";
-            if (by3(i)){output += "Fizz";}
-            if (by5(i)){output += "Buzz";}
-            if (by7(i)){output += "Bang";}  
+            if (By3(i)){output += "Fizz";}
+            if (By5(i)){output += "Buzz";}
+            if (By7(i)){output += "Bang";}  
 
-            if ((!by3(i) && !by5(i) && !by7(i)) || i == 0){ 
+            if ((!By3(i) && !By5(i) && !By7(i)) || i == 0){ 
                 Console.WriteLine(i.ToString());
             } else {
                 Console.WriteLine(output);
             }
+
+            Console.Write("What should be next in the sequence: ");
+            UserPlayMenu();
+
+            Console.ReadLine();
+
+            
+            
         }
     }
-        public static bool by3(int num){ return (num % 3 == 0) ? true : false;}
-        public static bool by5(int num){ return (num % 5 == 0) ? true : false;}
-        public static bool by7(int num){ return (num % 7 == 0) ? true : false;}
+        public static bool By3(int num){ return (num % 3 == 0) ? true : false;}
+        public static bool By5(int num){ return (num % 5 == 0) ? true : false;}
+        public static bool By7(int num){ return (num % 7 == 0) ? true : false;}
 
     public static bool IsValidIntInput(string userInput){
         int value;
@@ -69,6 +77,35 @@ public class FizzBuzz {
 
         return true;
     }
+
+
+    public static bool GameSetup(int i){
+        //Better idea: the game will go through the list first before allowing the user to play and input all the dif fizz/buzz/bang combination possibilites into a dictionary (because you can check each key to see whether or not that value already exists to avoid duplicates)
+        
+
+    }
+
+    public static bool UserPlayMenu(int i){
+        //There are too many different possible variations to consider them all as options. Going to have randomly give the user 4 options
+        Console.WriteLine("***********Options***********" );
+        Console.WriteLine("[1] - " + i.ToString());
+        Console.WriteLine("[2] - Fizz (Range 0 - 20)");
+        Console.WriteLine("[3] - Buzz (Range 30 - 100)\n");
+        Console.WriteLine("[4] - Bang (Range 30 - 100)\n");
+
+        Console.WriteLine("[5] - FizzBuzz (Range 30 - 100)\n");
+        Console.WriteLine("[6] - FizzBang (Range 30 - 100)\n");
+        Console.WriteLine("[7] - FizzBuzzBang (Range 30 - 100)\n");
+
+
+        string[] weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+        Dictionary<int,string> userOptions = new Dictionary<int,string>();
+        userOptions.Add(1,)
+        userOptions.Add(2,)
+        userOptions.Add(3,)
+        userOptions.Add(4,)
+
+
+    }
 }
-
-
