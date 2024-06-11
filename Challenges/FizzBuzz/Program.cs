@@ -24,6 +24,8 @@ public class FizzBuzz {
 
         (int min, int max) = UserSetRange();
 
+        ShowRules();
+
         //First run is to fill a Hashset (so no duplicates) with realistic options for user selection
         userOptions = SimulateRun(min,max,false);
 
@@ -62,11 +64,14 @@ public class FizzBuzz {
 
         string userInput;
         int rando;
-     
-        menuList.Add(cpuAnswer);
+
+        //menuList.Add(i.ToString());
+        if (i.ToString() != cpuAnswer){
+            menuList.Add(cpuAnswer);
+        }
 
         //Create a unique menu with 3 values: 2 dummy (but realistically possible) vals, and the answer
-        while (menuList.Count < 3){
+        while (menuList.Count < 5){
             rando = new Random().Next(0,userOptionsList.Count);
 
             if (userOptionsList[rando] != cpuAnswer){
@@ -82,13 +87,11 @@ public class FizzBuzz {
         finalList.Add(menuList[0]);
         finalList.Add(menuList[1]);
 
+        
         Console.WriteLine("***********Options***********" );
         for (int x = 0; x < finalList.Count; x++) {
-             Console.WriteLine("[{x}] - " + finalList[x]);
+             Console.WriteLine($"[{x}] - " + finalList[x]);
         }
-
-        Console.Write("Please select a number option between 0-3: ");
-        userInput = Console.ReadLine(); 
 
         do {
             Console.Write("Please select a number option between 0-3: ");
@@ -106,29 +109,38 @@ public class FizzBuzz {
         string userAnswer;
 
         for (int i = min+1; i < max+2; i++){
+            if (i == 0 && isUser){
+                Console.WriteLine("\nCPU TURN: " + (i).ToString());
+                continue;
+            }
+
+            if (i%2==0){
+                Console.WriteLine("\nCPU TURN: " + (i).ToString());
+            }
+
             string cpuOutput = "";
             if (By3(i)){cpuOutput += "Fizz";}
             if (By5(i)){cpuOutput += "Buzz";}
-            if (By7(i)){cpuOutput += "Bang";}  
+            if (By7(i)){cpuOutput += "Bang";} 
 
-            if ((!By3(i) && !By5(i) && !By7(i)) || i == 0){ 
+            if ((!By3(i) && !By5(i) && !By7(i))){ 
                 cpuOutput = i.ToString();
             }
 
             if (isUser){
-                Console.WriteLine("CPU TURN: " + (i-1).ToString());
                 userAnswer = UserPlayMenu(i,cpuOutput,min, max);
                 
                 if (userAnswer == cpuOutput){
-                    Console.WriteLine("CORRECT!");
-                    Console.WriteLine(userAnswer);
+                    Console.WriteLine($"\n {userAnswer} IS CORRECT!");
                     continue;
                 } else {
                     Console.WriteLine("INCORRECT... GAME OVER....");
                     break;
                 }
             } else {
-                userOptionsSet.Add(cpuOutput);
+                if(!int.TryParse(cpuOutput, out int value)){
+                    userOptionsSet.Add(cpuOutput);      
+                }
             }
         }
 
@@ -140,9 +152,7 @@ public class FizzBuzz {
         int min;
         int max;
 
-        Console.WriteLine("To play FizzBuzz, select a range of numbers to start!");
-        Console.Write("First enter the starting number of the range: ");
-        temp = Console.ReadLine();
+        Console.WriteLine("To play FizzBuzz, select a range of numbers to start!\n");
 
         do {
             Console.Write("First enter the starting number of the range: ");
@@ -161,5 +171,16 @@ public class FizzBuzz {
         max = Int32.Parse(temp);
 
         return (min, max);
+    }
+
+    public static void ShowRules(){
+        Console.WriteLine("\n**************RULES**************");
+        Console.WriteLine("The CPU will output a number starting from the beginning of the range.");
+        Console.WriteLine("As the player, you must either choose the next number in the sequence or choose the string corresponding to one of the following situations: \n");
+
+        Console.WriteLine("If the number is divisible by 3, replace it with \"Fizz\".");
+        Console.WriteLine("If the number is divisible by 5, replace with with \"Buzz\".");
+        Console.WriteLine("If the number is divisible by BOTH 3 and 5, replace with with \"FizzBuzz\".");
+        Console.WriteLine("Add \"Bang\" for numbers divisible by 7, and all the combinations of 3, 5, and 7 get the combinations of Fizz, Buzz, Bang.\n");
     }
 }
