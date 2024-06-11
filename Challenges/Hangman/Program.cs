@@ -1,7 +1,7 @@
 ﻿/*To DO
 
 //PreProcessing
--What type of file is Apple notes files saved in?
+-Remove definitions
 -Format file to just a separate word on each line
 -format vocab words into 3 dif files or categories based on length
 -Convert notes vocab list into .txt file (or read in as is)
@@ -30,22 +30,42 @@
 //Challenge
 -Is it possible to do it this way and allow user to reveal all similar letters at the same time?
 -if not maybe only implement this on the hardest difficulty, forcing the user to have to guess letter b letter one index at a time
-
-
 */
-
-
-
-
 
 using System;
 using System.Net.NetworkInformation;
+using System.IO;
+
 public class HangMan {
 
     public static void Main(string[] args){
+        ReadVocabTxt();
 
     }
 
+    public static void ReadVocabTxt(){
+        //https://learn.microsoft.com/en-us/troubleshoot/developer/visualstudio/csharp/language-compilers/read-write-text-file
+        String line;
+        string rawTxtPath = "rawVocab.txt";
+        
+        try {
+            StreamReader sr = new StreamReader(rawTxtPath);
+            line = sr.ReadLine();
+
+            while (line != null){
+                Console.WriteLine(line);
+                line = sr.ReadLine();
+            }
+            
+            sr.Close();
+            Console.ReadLine();
+        } catch(Exception e){
+            Console.WriteLine("Exception: " + e.Message);
+
+        } finally {
+            Console.WriteLine("Executing finally block.");
+        }
+    }
 }
 
 
