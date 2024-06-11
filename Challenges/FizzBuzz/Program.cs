@@ -22,16 +22,16 @@ public class FizzBuzz {
     public static void Main(string[] args){
         HashSet<string> userOptions = new HashSet<string>();
 
-        (int start, int end) = UserSetRange();
+        (int min, int max) = UserSetRange();
 
         //First run is to fill a Hashset (so no duplicates) with realistic options for user selection
-        userOptions = SimulateRun(start,end,false);
+        userOptions = SimulateRun(min,max,false);
 
         //Convert our non-duplicate options into a list for easier random indexing.
         userOptionsList = userOptions.ToList();
 
         //This is the actual gameplay with user
-        SimulateRun(start,end,true);
+        SimulateRun(min,max,true);
     }
     
     public static bool By3(int num){ return (num % 3 == 0) ? true : false;}
@@ -56,20 +56,20 @@ public class FizzBuzz {
         return true;
     }
 
-    public static string UserPlayMenu(int i, string answer, int min, int max){
+    public static string UserPlayMenu(int i, string cpuAnswer, int min, int max){
         List<string> menuList = new List<string>();
         List<string> finalList = new List<string>();
 
         string userInput;
         int rando;
      
-        menuList.Add(answer);
+        menuList.Add(cpuAnswer);
 
         //Create a unique menu with 3 values: 2 dummy (but realistically possible) vals, and the answer
         while (menuList.Count < 3){
             rando = new Random().Next(0,userOptionsList.Count);
 
-            if (userOptionsList[rando] != answer){
+            if (userOptionsList[rando] != cpuAnswer){
                 menuList.Add(userOptionsList[rando]);
             }
         }
@@ -96,32 +96,38 @@ public class FizzBuzz {
 
         } while (!IsValidIntInput(userInput, min, max));
   
-  
+
         return finalList[Int32.Parse(userInput)];
 
     }
 
-    public static HashSet<string> SimulateRun(int start, int end, bool isUser){
+    public static HashSet<string> SimulateRun(int min, int max, bool isUser){
         HashSet<string> userOptionsSet = new HashSet<string>();
+        string userAnswer;
 
-        for (int i = start; i < end+1; i++){
-            string output = "";
-            if (By3(i)){output += "Fizz";}
-            if (By5(i)){output += "Buzz";}
-            if (By7(i)){output += "Bang";}  
+        for (int i = min; i < max+1; i++){
+            string cpuOutput = "";
+            if (By3(i)){cpuOutput += "Fizz";}
+            if (By5(i)){cpuOutput += "Buzz";}
+            if (By7(i)){cpuOutput += "Bang";}  
 
             if ((!By3(i) && !By5(i) && !By7(i)) || i == 0){ 
-                output = i.ToString();
+                cpuOutput = i.ToString();
             }
 
             if (isUser){
-                //answerAsString = UserPlayMenu(i,answer);
-                //Must compare user Answer with computer answer
-                // if true print user answer to console and go to next iteration
-                //if false game is over and print message for the user
-                //Console.WriteLine(output);
+                userAnswer = UserPlayMenu(i,cpuOutput,min, max);
+
+                if (userAnswer == cpuOutput){
+                    Console.WriteLine("CORRECT!");
+                    Console.WriteLine(userAnswer);
+                    continue;
+                } else {
+                    Console.WriteLine("INCORRECT... GAME OVER....");
+                    break;
+                }
             } else {
-                userOptionsSet.Add(output);
+                userOptionsSet.Add(cpuOutput);
             }
         }
 
