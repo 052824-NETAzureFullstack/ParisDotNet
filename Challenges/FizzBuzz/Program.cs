@@ -16,15 +16,16 @@ using System;
 using System.ComponentModel;
 
 public class FizzBuzz {
+    HashSet<string> userOptions = new HashSet<string>();
 
     public static void Main(string[] args){
-
         (int start, int end) = UserSetRange();
+
+        //First run is to fill a Hashset (so no duplicates) with realistic options for user selection
         SimulateRun(start,end,false);
+
+        //This is the actual gameplay with user
         SimulateRun(start,end,true);
-
-
-
 
     }
     
@@ -32,7 +33,7 @@ public class FizzBuzz {
     public static bool By5(int num){ return (num % 5 == 0) ? true : false;}
     public static bool By7(int num){ return (num % 7 == 0) ? true : false;}
 
-    public static bool IsValidIntInput(string userInput){
+    public static bool IsValidIntInput(string userInput, int min, int max){
         int value;
 
           try{
@@ -42,39 +43,40 @@ public class FizzBuzz {
             return false;
         }
 
+        if ((min + max > 0) && (value < min || value > max)){
+            Console.WriteLine("Input should be only an integer value between " + min + "-" + max + " (Inclusive)! Please Try Again...\n");
+            return false;
+        } else{
+            return true;
+        }  
+
         return true;
     }
 
+    public static string UserPlayMenu(int i){
+        string userInput;
+        int rando1 = new Random().Next(0,userOptions.Count);
+        int rando2 = new Random().Next(0,userOptions.Count);
+        int rando3 = new Random().Next(0,userOptions.Count);
+        string[] options = [userOptions[rando1],userOptions[rando2],userOptions[rando3]];
 
-    public static void GameSetup(){
-        //Better idea: the game will go through the list first before allowing the user to play and input all the dif fizz/buzz/bang combination possibilites into a dictionary (because you can check each key to see whether or not that value already exists to avoid duplicates)
-        //If C# has sets then a dictionary may not be necessary
 
-        HashSet<string> userOptions = new HashSet<string>();
-            //userOptions.Add()
-    }
-
-    public static void UserPlayMenu(int i){
-        //There are too many different possible variations to consider them all as options. Going to have randomly give the user 4 options
         Console.WriteLine("***********Options***********" );
-        Console.WriteLine("[1] - " + i.ToString());
-        Console.WriteLine("[2] - Fizz (Range 0 - 20)");
-        Console.WriteLine("[3] - Buzz (Range 30 - 100)\n");
-        Console.WriteLine("[4] - Bang (Range 30 - 100)\n");
-
-        Console.WriteLine("[5] - FizzBuzz (Range 30 - 100)\n");
-        Console.WriteLine("[6] - FizzBang (Range 30 - 100)\n");
-        Console.WriteLine("[7] - FizzBuzzBang (Range 30 - 100)\n");
+        Console.WriteLine("[0] - " + options[0]);
+        Console.WriteLine("[1] - " + options[1]);
+        Console.WriteLine("[2] - " + options[2]);    
+        Console.WriteLine("[3] - " + i.ToString());
 
 
-        string[] weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        Console.Write("Please select a number option between 0-3: ");
+        userInput = Console.ReadLine(); 
 
-        Dictionary<int,string> userOptions = new Dictionary<int,string>();
-      
+        if (IsValidIntInput(userInput)){
+            return options[Int32.Parse(userInput)];
+        }
     }
 
     public static void SimulateRun(int start, int end, bool isUser){
-        HashSet<string> userOptions = new HashSet<string>();
         for (int i = start; i < end+1; i++){
             string output = "";
             if (By3(i)){output += "Fizz";}
@@ -86,7 +88,11 @@ public class FizzBuzz {
             }
 
             if (isUser){
-                Console.WriteLine(output);
+                //answerAsString = UserPlayMenu();
+                //Must compare user Answer with computer answer
+                // if true print user answer to console and go to next iteration
+                //if false game is over and print message for the user
+                //Console.WriteLine(output);
             } else {
                 userOptions.Add(output);
             }
@@ -102,7 +108,7 @@ public class FizzBuzz {
         Console.Write("First enter the starting number of the range: ");
         temp = Console.ReadLine();
         
-        if (!IsValidIntInput(temp)){
+        if (!IsValidIntInput(temp,0,0)){
             temp = Console.ReadLine();
         }
 
@@ -111,7 +117,7 @@ public class FizzBuzz {
         Console.Write("Great! Now enter the ending number of the range: ");
         temp = Console.ReadLine();
 
-        if (!IsValidIntInput(temp)){
+        if (!IsValidIntInput(temp,0,0)){
             temp = Console.ReadLine();
         }
 
