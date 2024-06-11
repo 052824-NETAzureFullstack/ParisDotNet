@@ -17,10 +17,10 @@ using System.Linq;
 
 
 public class FizzBuzz {    
-    public static List<string> userOptionsList;
+    public static List<string> userOptions;
+
 
     public static void Main(string[] args){
-        HashSet<string> userOptions = new HashSet<string>();
 
         (int min, int max) = UserSetRange();
 
@@ -28,9 +28,6 @@ public class FizzBuzz {
 
         //First run is to fill a Hashset (so no duplicates) with realistic options for user selection
         userOptions = SimulateRun(min,max,false);
-
-        //Convert our non-duplicate options into a list for easier random indexing.
-        userOptionsList = userOptions.ToList();
 
         //This is the actual gameplay with user
         SimulateRun(min,max,true);
@@ -72,10 +69,10 @@ public class FizzBuzz {
 
         //Create a unique menu with 3 values: 2 dummy (but realistically possible) vals, and the answer
         while (menuList.Count < 5){
-            rando = new Random().Next(0,userOptionsList.Count);
+            rando = new Random().Next(0,userOptions.Count);
 
-            if (userOptionsList[rando] != cpuAnswer){
-                menuList.Add(userOptionsList[rando]);
+            if (userOptions[rando] != cpuAnswer){
+                menuList.Add(userOptions[rando]);
             }
         }
 
@@ -104,8 +101,8 @@ public class FizzBuzz {
 
     }
 
-    public static HashSet<string> SimulateRun(int min, int max, bool isUser){
-        HashSet<string> userOptionsSet = new HashSet<string>();
+    public static List<string> SimulateRun(int min, int max, bool isUser){
+        List<string> options = new List<string>();
         string userAnswer;
 
         if (isUser){
@@ -135,12 +132,12 @@ public class FizzBuzz {
                 }
             } else {
                 if(!int.TryParse(cpuOutput, out int value)){
-                    userOptionsSet.Add(cpuOutput);      
+                    if (!options.Contains(cpuOutput)){ options.Add(cpuOutput); }                 
                 }
             }
         }
 
-        return userOptionsSet;
+        return options;
     }
 
     public static (int, int) UserSetRange(){
