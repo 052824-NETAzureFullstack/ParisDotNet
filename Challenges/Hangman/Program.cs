@@ -1,23 +1,21 @@
 ﻿/*To DO
 
-//PreProcessing
--List difficulty splitter should be 4
--remove duplicates
--Sort words by count
--format vocab words into 3 dif files or categories based on length
--Convert notes vocab list into .txt file (or read in as is)
--convert read txt file into 3 lists based on difficulty
 -To save memory instead only read in the list with the appropriate difficulty
 -Display instructions for user
--ask user name?
 -have player choose difficulty
-
--use chosen difficulty to
--Generate a random number rando
+-use chosen difficulty to select list
+-Generate a rando
 -Use rando to index the chosen list to grab a word
+
 -Create a hashmap (dictionary) for user guesses (keys will be the guess and val will be how many times that letter has been guessed)?
 -Total guesses =  Hard: word.Count + 3 | Medium: word.Count + (word.Count/2) | Easy = word.Count * 2
 -Countdown from total guesses on each turn
+
+//Challenge - do this for level easy
+-Is it possible to do it this way and allow user to reveal all similar letters at the same time?
+-if not maybe only implement this on the hardest difficulty, forcing the user to have to guess letter b letter one index at a time
+
+-if level is med or hard, allow user to reveal all letters in the word simultaneously
 
 -Iterate through the word-string and removeAt every time a player gets a correct guess
 -When string,Count == 0, user wins! else if countdown == 0, user loses
@@ -28,9 +26,7 @@
 -Every correct guess replaces result array with correct answer
 -re print every turn?
 
-//Challenge
--Is it possible to do it this way and allow user to reveal all similar letters at the same time?
--if not maybe only implement this on the hardest difficulty, forcing the user to have to guess letter b letter one index at a time
+
 */
 
 using System;
