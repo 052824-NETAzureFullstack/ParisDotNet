@@ -40,15 +40,16 @@ public class HangMan {
     public static void Main(string[] args){
         List<string> words;
         string gameWord;
+        int difficulty;
 
         //Removes definitions, white spaces, and duplicates from .txt file
         words = PreProcessTxtFile("-");
 
         //Prompt user to select their difficulty
-        DifficultySelector();
+        difficulty = DifficultySelector();
 
-        //SOrt words by count, divvy the words into buckets (lists) of 9 words a piece based on word length (easy <= 9 words, med <= 12 words, and hard <= 17 words), return game word
-        gameWord = BucketizeLists(words,difficulty);
+        //Divvy the words into buckets (lists) of 9 words a piece based on word length (easy <= 9 words, med <= 12 words, and hard <= 17 words), return game word
+        gameWord = GenerateGameWord(words,difficulty);
     }
 
     public static List<string> PreProcessTxtFile(string deliminator){
@@ -87,9 +88,9 @@ public class HangMan {
         return words;
     }
 
-    public static void Testing(List<string> words){
-        //What is the longest and shortest count of a particular list in the word?
-        //Need to sort list by word.Count
+    public static void Testing(List<string> words){        
+        //Sort by count words list by word length
+        //words.Sort((a,b) => a.Length - b.Length);
 
         //int min, max = words[0].Count();
         int min = words[0].Count();
@@ -109,22 +110,36 @@ public class HangMan {
         Console.WriteLine($"max = {max}");
     }
 
-    public static string BucketizeLists(List<string> words, string difficulty){
-
-        //Sort by count words list by word length
-        words.Sort((a,b) => a.Length - b.Length);
-        
-        string selectedDifficulty = DifficultySelector();
-        List<string> easyList = new List<string>();
-        List<string> mediumList = new List<string>();
-        List<string> hardList = new List<string>();
-        Random rando = new Random();
+    public static string GenerateGameWord(List<string> words, int difficulty){
         int limit = 9;
+        int wordLengthMax;
 
+        //Create a list of 9 appropriately sized words based on difficulty selected
+        switch(difficulty){
+        case 1:
+            wordLengthMax = 9;
+            break;
 
+        case 2:
+            wordLengthMax = 12;
+            break;
 
-        //PUT SWITCH HERE that way only 1 list will need to be made instead of 3
-        
+        case 3:
+            wordLengthMax = 17;
+            break;
+
+        default:
+            wordLengthMax = 9;
+            break;
+        }
+
+        return BucketizeWords(wordLengthMax,limit)[new Random().Next(limit)];
+
+    }
+
+    public static List<string> BucketizeWords(int length, int limit){
+        List<string> gameOptions = new List<string>();
+
         //Bucketize words by difficulty/Count
         for (int i = 0; i < words.Count; i++){
             if (words[i].Count() <= 9 && easyList.Count < 9){
@@ -137,26 +152,7 @@ public class HangMan {
                 hardList.Add(words[i]);
             }
         }
-
-        //Need to finish ediitng difficulty selector to fit this code
-        switch(selectedDifficulty){
-        case 1:
-            limit = 10;
-            return easyList[rando.Next(limit)];
-
-        case 2:
-            limit = 13;
-            return mediumList[rando.Next(limit)];
-
-        case 3:
-            limit = 18;
-            return hardList[rando.Next(limit)];
-        }
     }
-
-    //Need to decompartmentalize the bucketizeList functin... too long. Title doesn't properly convey what it is doing
-    //public static string selectRandomWord(){}
-
    
     //Allow user to select the word difficulty
     public static int DifficultySelector(){
