@@ -215,10 +215,10 @@ public class HangMan {
     public static void RunGame(string gameWord, double multiplier){
         int countdown = (int)(gameWord.Count() * multiplier);
         int interator = 0;
-        char userGuess;
+        char userGuess = '_';
 
-        
-        Console.Write("Enter your guess in contiguous fashion: ");
+        Console.Write($"COUNTDOWN: {countdown}\n");
+        Console.Write($"Enter your guess in contiguous fashion: {userGuess}");
         
 
         while(countdown > 0){
@@ -226,13 +226,11 @@ public class HangMan {
             userGuess = (char)Console.Read();
             if (userGuess == gameWord[interator]){
                 interator++;
-                Console.Write($"{userGuess}");
+                //Console.Write($"{userGuess}");
             }
             countdown--; 
-            Console.Write($"COUNTDOWN: {countdown}\n");
     
         }
-        
         
         //Console.WriteLine($"COUNTDOWN: {countdown}\n");
         //Console.Clear(); 
