@@ -30,6 +30,13 @@ public class FizzBuzz {
         //First run is to fill a Hashset (so no duplicates) with realistic options for user selection
         userOptions = SimulateRun(min,max,false);
 
+        foreach (string option in userOptions){
+            Console.WriteLine(option);
+        }
+
+        Console.WriteLine(userOptions.Count);
+
+
         //User could pick a range that has less than 3 possible userOptions, if so, artificially fill list with other fake values
         if (userOptions.Count < 4){
             MenuOptionSteroids();
@@ -195,17 +202,17 @@ public class FizzBuzz {
             case 0:
                 userOptions.Add("Fizz");
                 userOptions.Add("Crack");
-                goto case 2;
+                goto case 1;
 
             case 1:
                 userOptions.Add("Buzz");
                 userOptions.Add("Woosh");
-                goto case 1;
+                goto case 2;
 
             case 2:
                 userOptions.Add("Bang");
                 userOptions.Add("Pop");
-                goto case 0;
+                goto case 3;
 
             case 3:
                 userOptions.Add("Wap");
