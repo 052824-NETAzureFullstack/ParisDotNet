@@ -140,15 +140,15 @@ public class HangMan {
 
         //Need to finish ediitng difficulty selector to fit this code
         switch(selectedDifficulty){
-        case easy:
+        case 1:
             limit = 10;
             return easyList[rando.Next(limit)];
 
-        case medium:
+        case 2:
             limit = 13;
             return mediumList[rando.Next(limit)];
 
-        case hard:
+        case 3:
             limit = 18;
             return hardList[rando.Next(limit)];
         }
@@ -170,13 +170,11 @@ public class HangMan {
         levels.Add(2, meh);
         levels.Add(3, impossible);
 
-        Console.WriteLine("\nWelcome! Choose Your Difficulty:\n" );
-        Console.WriteLine("***********ALL NUMBER RANGES ARE INCLUSIVE***********" );
+        Console.WriteLine("\n*********** Choose Your Difficulty: ***********\n" );
         Console.WriteLine("[1] - Easy");
         Console.WriteLine("[2] - Medium");
         Console.WriteLine("[3] - Hard\n");
-
-        Console.WriteLine("Please select your difficulty level (Enter 1, 2, or 3): ");
+        Console.WriteLine("Please select your difficulty by entering either 1, 2, or 3: ");
 
         try{
             difficulty = Int32.Parse(Console.ReadLine());
@@ -191,6 +189,24 @@ public class HangMan {
         }
 
         return levels[difficulty];
+    }
+
+        public static bool IsValidIntInput(string userInput, int min, int max){
+        int value;
+
+          try{
+            value = Int32.Parse(userInput);
+        } catch(Exception){
+            Console.WriteLine("\nInput type should be only an integer value,  Please check your entry and try Again...\n");
+            return false;
+        }
+
+        if ((min + max > 0) && (value < min || value > max)){
+            Console.WriteLine("Input should be only an integer value between " + min + "-" + max + " (Inclusive)! Please Try Again...\n");
+            return false;
+        }
+
+        return true;
     }
 
 }
