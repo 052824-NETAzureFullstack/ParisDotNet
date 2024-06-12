@@ -1,12 +1,5 @@
 ﻿/*To DO
 
--To save memory instead only read in the list with the appropriate difficulty
--Display instructions for user
--have player choose difficulty
--use chosen difficulty to select list
--Generate a rando
--Use rando to index the chosen list to grab a word
-
 -Create a hashmap (dictionary) for user guesses (keys will be the guess and val will be how many times that letter has been guessed)?
 -Total guesses =  Hard: word.Count + 3 | Medium: word.Count + (word.Count/2) | Easy = word.Count * 2
 -Countdown from total guesses on each turn
@@ -32,14 +25,9 @@ using System.Net.NetworkInformation;
 using System.IO;
 
 public class HangMan {
-    public static readonly string easy = "Easy";
-    public static readonly string medium = "Medium";
-    public static readonly string hard = "Hard";
-
 
     public static void Main(string[] args){
         List<string> words;
-        string gameWord;
         int difficulty;
 
         //Removes definitions, white spaces, and duplicates from .txt file
@@ -49,7 +37,7 @@ public class HangMan {
         difficulty = DifficultySelector();
 
         //Divvy the words into buckets (lists) of 9 words a piece based on word length (easy <= 9 words, med <= 12 words, and hard <= 17 words), return game word
-        gameWord = GenerateGameWord(words,difficulty);
+        (string gameWord, string level) = GenerateGameWord(words,difficulty);
 
         Console.WriteLine(gameWord);
     }
@@ -112,31 +100,36 @@ public class HangMan {
         Console.WriteLine($"max = {max}");
     }
 
-    public static string GenerateGameWord(List<string> words, int difficulty){
+    public static (string,string) GenerateGameWord(List<string> words, int difficulty){
         int limit = 9;
         int wordLengthMax;
+        string level;
 
         //Create a list of 9 appropriately sized words with a word length based on difficulty selected
         switch(difficulty){
         case 1:
             wordLengthMax = 9;
+            level = "Easy";
             break;
 
         case 2:
             wordLengthMax = 12;
+            level = "Medium";
             break;
 
         case 3:
             wordLengthMax = 17;
+            level = "Hard";
             break;
 
         default:
-            wordLengthMax = 9;
+            wordLengthMax = 11;
+            level = "Error Level";
             break;
         }
 
-        //Shaves down our original, 130+ word list into 9 filled with only words of the appropriate length, then randomly selects one of those words to return
-        return BucketizeWords(words, wordLengthMax,limit)[new Random().Next(limit)];
+        //Shaves down our original, 130+ word list into 9 filled with only words of the appropriate length, then randomly selects one of those words to return (and returns difficult string for later display)
+        return (BucketizeWords(words, wordLengthMax,limit)[new Random().Next(limit)], level);
 
     }
 
