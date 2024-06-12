@@ -29,6 +29,11 @@ public class FizzBuzz {
         //First run is to fill a Hashset (so no duplicates) with realistic options for user selection
         userOptions = SimulateRun(min,max,false);
 
+        //User could pick a range that has less than 3 possible userOptions, if so, artificially fill list with other fake values
+        if (userOptions.Count < 4){
+            MenuOptionSteroids();
+        }
+
         //This is the actual gameplay with user
         SimulateRun(min,max,true);
     }
@@ -88,7 +93,7 @@ public class FizzBuzz {
         }
 
         do {
-            Console.Write("Please select a number option between 0-3: ");
+            Console.Write("What\'s next in this sequence? Please select a number option between 0-3: ");
             userInput = Console.ReadLine(); 
 
         } while (!IsValidIntInput(userInput, min, max));
@@ -101,6 +106,7 @@ public class FizzBuzz {
     public static List<string> SimulateRun(int min, int max, bool isUser){
         List<string> options = new List<string>();
         string userAnswer;
+        string userWins;
 
         if (isUser){
             Console.WriteLine("\nCPU TURN: " + (min).ToString());
@@ -121,7 +127,8 @@ public class FizzBuzz {
                 userAnswer = UserPlayMenu(i,cpuOutput,min, max);
                 
                 if (userAnswer == cpuOutput){
-                    Console.WriteLine($"\n {userAnswer} IS CORRECT!");
+                    userWins = (i == max) ? "CONGRATULATIONS! YOU HAVE WON THE GAME!" : "";
+                    Console.WriteLine($"\n {userAnswer} IS CORRECT!" + userWins);
                     Console.WriteLine("\nCPU TURN: " + (cpuOutput).ToString());
                 } else {
                     Console.WriteLine("INCORRECT... GAME OVER....");
@@ -172,5 +179,29 @@ public class FizzBuzz {
         Console.WriteLine("If the number is divisible by 5, replace with with \"Buzz\".");
         Console.WriteLine("If the number is divisible by BOTH 3 and 5, replace with with \"FizzBuzz\".");
         Console.WriteLine("Add \"Bang\" for numbers divisible by 7, and all the combinations of 3, 5, and 7 get the combinations of Fizz, Buzz, Bang.\n");
+    }
+
+    public static void MenuOptionSteroids(){
+        switch(userOptions.Count){
+            case 0:
+                userOptions.Add("Fizz");
+                userOptions.Add("Crack");
+                goto case 2;
+
+            case 1:
+                userOptions.Add("Buzz");
+                userOptions.Add("Woosh");
+                goto case 1;
+
+            case 2:
+                userOptions.Add("Bang");
+                userOptions.Add("Pop");
+                goto case 0;
+
+            case 3:
+                userOptions.Add("Wap");
+                userOptions.Add("Snap");
+                break;
+        }
     }
 }
