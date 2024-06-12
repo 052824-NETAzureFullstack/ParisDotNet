@@ -159,49 +159,34 @@ public class HangMan {
 
    
     //Allow user to select the word difficulty
-    public static string DifficultySelector(){
-        int difficulty = -1;
-        (int, int, string) cupcake = (3,9,"Cupcake"); 
-        (int, int, string) meh = (0,20,"Meh"); 
-        (int, int, string) impossible = (30,100,"Impossible"); 
-
-        Dictionary<int,(int,int,string)> levels = new Dictionary<int,(int,int,string)>();
-        levels.Add(1, cupcake);
-        levels.Add(2, meh);
-        levels.Add(3, impossible);
+    public static int DifficultySelector(){
+        string userInput;
 
         Console.WriteLine("\n*********** Choose Your Difficulty: ***********\n" );
         Console.WriteLine("[1] - Easy");
         Console.WriteLine("[2] - Medium");
         Console.WriteLine("[3] - Hard\n");
-        Console.WriteLine("Please select your difficulty by entering either 1, 2, or 3: ");
+        
+        do {
+            Console.WriteLine("Please select your difficulty by entering either 1, 2, or 3: ");
+            userInput = Console.ReadLine();
 
-        try{
-            difficulty = Int32.Parse(Console.ReadLine());
-        } catch(Exception){
-            Console.WriteLine("Input should be an integer! Please enter either 1, 2, or 3. Try again...\n");
-            DifficultySelector(name);
-        }
+        } while(!IsValidIntInput(userInput,1,3));
 
-        if (difficulty < 1 || difficulty > 3){
-            Console.WriteLine("Input should only be either 1, 2, or 3. Try again...\n");
-            DifficultySelector(name);
-        }
-
-        return levels[difficulty];
+        return Int32.Parse(userInput);
     }
 
-        public static bool IsValidIntInput(string userInput, int min, int max){
+    public static bool IsValidIntInput(string userInput, int min, int max){
         int value;
 
-          try{
+        try{
             value = Int32.Parse(userInput);
         } catch(Exception){
             Console.WriteLine("\nInput type should be only an integer value,  Please check your entry and try Again...\n");
             return false;
         }
 
-        if ((min + max > 0) && (value < min || value > max)){
+        if (value < min || value > max){
             Console.WriteLine("Input should be only an integer value between " + min + "-" + max + " (Inclusive)! Please Try Again...\n");
             return false;
         }
