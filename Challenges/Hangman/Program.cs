@@ -41,33 +41,15 @@ public class HangMan {
 
     public static void Main(string[] args){
         List<string> words;
-        List<string> easy = new List<string>();
-        List<string> medium = new List<string>();
-        List<string> hard = new List<string>();
 
+        //Removes definitions, white spaces, and duplicates from .txt file
         words = PreProcessTxtFile("-");
 
-        //Sort by count and then divide each section by 6 to separate into appropriate difficulty list (if shortest is still 5-17)
+        //Sort by count words list by word length
         words.Sort((a,b) => a.Length - b.Length);
 
-        Testing(words); 
-
-        //Bucketize words by difficulty/Count
-        for (int i = 0; i < words.Count; i++){
-            if (words[i].Count() <= 9){
-                easy.Add(words[i]);
-
-            } else if (words[i].Count() > 9 && words[i].Count() < 13) {
-                medium.Add(words[i]);
-
-            } else {
-                hard.Add(words[i]);
-            }
-        }
-
-        Console.WriteLine($"easy.Count = {easy.Count}");
-        Console.WriteLine($"medium.Count = {medium.Count}");
-        Console.WriteLine($"hard.Count = {hard.Count}");
+        //Divvy the words list into buckets of 9 words a piece based on word length (easy <= 9 words, med <= 12 words, and hard <= 17 words)
+        BucketizeLists(words);
     }
 
     public static List<string> PreProcessTxtFile(string deliminator){
@@ -103,7 +85,6 @@ public class HangMan {
         return words;
     }
 
-
     public static void Testing(List<string> words){
         //What is the longest and shortest count of a particular list in the word?
         //Need to sort list by word.Count
@@ -125,6 +106,63 @@ public class HangMan {
         Console.WriteLine($"\n\nmin = {min}");
         Console.WriteLine($"max = {max}");
     }
+
+    public static void BucketizeLists(List<string> words){
+        List<string> easy = new List<string>();
+        List<string> medium = new List<string>();
+        List<string> hard = new List<string>();
+
+        //Bucketize words by difficulty/Count
+        for (int i = 0; i < words.Count; i++){
+            if (words[i].Count() <= 9 && easy.Count < 9){
+                easy.Add(words[i]);
+
+            } else if (words[i].Count() > 9 && words[i].Count() < 13 && medium.Count < 9) {
+                medium.Add(words[i]);
+
+            } else if (words[i].Count() >= 13 && hard.Count < 9) {
+                hard.Add(words[i]);
+            }
+        }
+
+    }
+
+   
+    //Allow user to select the word difficulty
+    public static (int,int,string) DifficultySelector(string name){
+        int difficulty = -1;
+        (int, int, string) cupcake = (3,9,"Cupcake"); 
+        (int, int, string) meh = (0,20,"Meh"); 
+        (int, int, string) impossible = (30,100,"Impossible"); 
+
+        Dictionary<int,(int,int,string)> levels = new Dictionary<int,(int,int,string)>();
+        levels.Add(1, cupcake);
+        levels.Add(2, meh);
+        levels.Add(3, impossible);
+
+        Console.WriteLine("\nWelcome " + name + "! Now, Choose Your Difficulty:\n" );
+        Console.WriteLine("***********ALL NUMBER RANGES ARE INCLUSIVE***********" );
+        Console.WriteLine("[1] - Cupcake (Range 3 - 9)");
+        Console.WriteLine("[2] - Meh (Range 0 - 20)");
+        Console.WriteLine("[3] - Impossible (Range 30 - 100)\n");
+
+        Console.WriteLine("Please select your difficulty level (Enter 1, 2, or 3): ");
+
+        try{
+            difficulty = Int32.Parse(Console.ReadLine());
+        } catch(Exception){
+            Console.WriteLine("Input should be an integer! Please enter either 1, 2, or 3. Try again...\n");
+            DifficultySelector(name);
+        }
+
+        if (difficulty < 1 || difficulty > 3){
+            Console.WriteLine("Input should only be either 1, 2, or 3. Try again...\n");
+            DifficultySelector(name);
+        }
+
+        return levels[difficulty];
+    }
+
 }
 
 
