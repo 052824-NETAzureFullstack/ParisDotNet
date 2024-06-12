@@ -33,9 +33,6 @@ public class HangMan {
         //Removes definitions, white spaces, and duplicates from .txt file
         words = PreProcessTxtFile("-");
 
-        foreach (string word in words){
-            Console.WriteLine(word);
-        }
         //Prompt user to select their difficulty
         difficulty = DifficultySelector();
 
@@ -140,7 +137,6 @@ public class HangMan {
         for (int i = 0; i < words.Count; i++){
             if (words[i].Count() <= wordLengthMax && gameOptions.Count < limit){
                 gameOptions.Add(words[i]);
-                //Console.WriteLine(words[i]);
             }
         }
 
