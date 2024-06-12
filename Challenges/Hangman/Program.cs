@@ -25,8 +25,6 @@
 -On screen, initially just print out underscores equal to word.Count
 -Every correct guess replaces result array with correct answer
 -re print every turn?
-
-
 */
 
 using System;
@@ -41,15 +39,16 @@ public class HangMan {
 
     public static void Main(string[] args){
         List<string> words;
+        string gameWord;
 
         //Removes definitions, white spaces, and duplicates from .txt file
         words = PreProcessTxtFile("-");
 
-        //Sort by count words list by word length
-        words.Sort((a,b) => a.Length - b.Length);
+        //Prompt user to select their difficulty
+        DifficultySelector();
 
-        //Divvy the words list into buckets of 9 words a piece based on word length (easy <= 9 words, med <= 12 words, and hard <= 17 words)
-        BucketizeLists(words);
+        //SOrt words by count, divvy the words into buckets (lists) of 9 words a piece based on word length (easy <= 9 words, med <= 12 words, and hard <= 17 words), return game word
+        gameWord = BucketizeLists(words,difficulty);
     }
 
     public static List<string> PreProcessTxtFile(string deliminator){
@@ -82,6 +81,9 @@ public class HangMan {
             Console.WriteLine("Executing finally block.");
         }
 
+        //Sort by count words list by word length
+        words.Sort((a,b) => a.Length - b.Length);
+
         return words;
     }
 
@@ -107,13 +109,18 @@ public class HangMan {
         Console.WriteLine($"max = {max}");
     }
 
-    public static string BucketizeLists(List<string> words){
+    public static string BucketizeLists(List<string> words, string difficulty){
+
+        //Sort by count words list by word length
+        words.Sort((a,b) => a.Length - b.Length);
+        
         string selectedDifficulty = DifficultySelector();
         List<string> easyList = new List<string>();
         List<string> mediumList = new List<string>();
         List<string> hardList = new List<string>();
         Random rando = new Random();
         int limit = 9;
+
 
 
         //PUT SWITCH HERE that way only 1 list will need to be made instead of 3
