@@ -214,14 +214,29 @@ public class HangMan {
 
     public static void RunGame(string gameWord, double multiplier){
         int countdown = (int)(gameWord.Count() * multiplier);
-        Console.WriteLine($"COUNTDOWN: {countdown}\n");
+        int interator = 0;
+        char userGuess;
+
+        
         Console.Write("Enter your guess in contiguous fashion: ");
         
-        do {
-            Console.Read();
-            countdown--;
-        } while (countdown > 0 );
+
+        while(countdown > 0){
+            //Need validation here
+            userGuess = (char)Console.Read();
+            if (userGuess == gameWord[interator]){
+                interator++;
+                Console.Write($"{userGuess}");
+            }
+            countdown--; 
+            Console.Write($"COUNTDOWN: {countdown}\n");
+    
+        }
         
+        
+        //Console.WriteLine($"COUNTDOWN: {countdown}\n");
+        //Console.Clear(); 
+
     }
 }
 
