@@ -112,27 +112,26 @@ public class HangMan {
     }
 
     public static string BucketizeLists(List<string> words){
-        string selectedDifficulty;
-        Random rando = new Random();
-        int limit = 9;
-        
-
-        //selectedDifficulty = DifficultySelector();
-
+        string selectedDifficulty = DifficultySelector();
         List<string> easyList = new List<string>();
         List<string> mediumList = new List<string>();
         List<string> hardList = new List<string>();
+        Random rando = new Random();
+        int limit = 9;
 
+
+        //PUT SWITCH HERE that way only 1 list will need to be made instead of 3
+        
         //Bucketize words by difficulty/Count
         for (int i = 0; i < words.Count; i++){
-            if (words[i].Count() <= 9 && easy.Count < 9){
-                easy.Add(words[i]);
+            if (words[i].Count() <= 9 && easyList.Count < 9){
+                easyList.Add(words[i]);
 
-            } else if (words[i].Count() > 9 && words[i].Count() < 13 && medium.Count < 9) {
-                medium.Add(words[i]);
+            } else if (words[i].Count() > 9 && words[i].Count() < 13 && mediumList.Count < 9) {
+                mediumList.Add(words[i]);
 
-            } else if (words[i].Count() >= 13 && hard.Count < 9) {
-                hard.Add(words[i]);
+            } else if (words[i].Count() >= 13 && hardList.Count < 9) {
+                hardList.Add(words[i]);
             }
         }
 
