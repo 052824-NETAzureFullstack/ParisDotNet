@@ -38,6 +38,10 @@ using System.Net.NetworkInformation;
 using System.IO;
 
 public class HangMan {
+    public static readonly string easy = "Easy";
+    public static readonly string medium = "Medium";
+    public static readonly string hard = "Hard";
+
 
     public static void Main(string[] args){
         List<string> words;
@@ -107,10 +111,17 @@ public class HangMan {
         Console.WriteLine($"max = {max}");
     }
 
-    public static void BucketizeLists(List<string> words){
-        List<string> easy = new List<string>();
-        List<string> medium = new List<string>();
-        List<string> hard = new List<string>();
+    public static string BucketizeLists(List<string> words){
+        string selectedDifficulty;
+        Random rando = new Random();
+        int limit = 9;
+        
+
+        //selectedDifficulty = DifficultySelector();
+
+        List<string> easyList = new List<string>();
+        List<string> mediumList = new List<string>();
+        List<string> hardList = new List<string>();
 
         //Bucketize words by difficulty/Count
         for (int i = 0; i < words.Count; i++){
@@ -125,11 +136,28 @@ public class HangMan {
             }
         }
 
+        //Need to finish ediitng difficulty selector to fit this code
+        switch(selectedDifficulty){
+        case easy:
+            limit = 10;
+            return easyList[rando.Next(limit)];
+
+        case medium:
+            limit = 13;
+            return mediumList[rando.Next(limit)];
+
+        case hard:
+            limit = 18;
+            return hardList[rando.Next(limit)];
+        }
     }
+
+    //Need to decompartmentalize the bucketizeList functin... too long. Title doesn't properly convey what it is doing
+    //public static string selectRandomWord(){}
 
    
     //Allow user to select the word difficulty
-    public static (int,int,string) DifficultySelector(string name){
+    public static string DifficultySelector(){
         int difficulty = -1;
         (int, int, string) cupcake = (3,9,"Cupcake"); 
         (int, int, string) meh = (0,20,"Meh"); 
@@ -140,11 +168,11 @@ public class HangMan {
         levels.Add(2, meh);
         levels.Add(3, impossible);
 
-        Console.WriteLine("\nWelcome " + name + "! Now, Choose Your Difficulty:\n" );
+        Console.WriteLine("\nWelcome! Choose Your Difficulty:\n" );
         Console.WriteLine("***********ALL NUMBER RANGES ARE INCLUSIVE***********" );
-        Console.WriteLine("[1] - Cupcake (Range 3 - 9)");
-        Console.WriteLine("[2] - Meh (Range 0 - 20)");
-        Console.WriteLine("[3] - Impossible (Range 30 - 100)\n");
+        Console.WriteLine("[1] - Easy");
+        Console.WriteLine("[2] - Medium");
+        Console.WriteLine("[3] - Hard\n");
 
         Console.WriteLine("Please select your difficulty level (Enter 1, 2, or 3): ");
 
