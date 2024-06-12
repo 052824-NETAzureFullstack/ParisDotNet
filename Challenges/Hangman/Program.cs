@@ -114,7 +114,7 @@ public class HangMan {
         int limit = 9;
         int wordLengthMax;
 
-        //Create a list of 9 appropriately sized words based on difficulty selected
+        //Create a list of 9 appropriately sized words with a word length based on difficulty selected
         switch(difficulty){
         case 1:
             wordLengthMax = 9;
@@ -133,28 +133,24 @@ public class HangMan {
             break;
         }
 
-        return BucketizeWords(wordLengthMax,limit)[new Random().Next(limit)];
+        //Shaves down our original, 130+ word list into 9 filled with only words of the appropriate length, then randomly selects one of those words to return
+        return BucketizeWords(words, wordLengthMax,limit)[new Random().Next(limit)];
 
     }
 
-    public static List<string> BucketizeWords(int length, int limit){
+    public static List<string> BucketizeWords(List<string> words, int wordLengthMax, int limit){
         List<string> gameOptions = new List<string>();
 
         //Bucketize words by difficulty/Count
         for (int i = 0; i < words.Count; i++){
-            if (words[i].Count() <= 9 && easyList.Count < 9){
-                easyList.Add(words[i]);
-
-            } else if (words[i].Count() > 9 && words[i].Count() < 13 && mediumList.Count < 9) {
-                mediumList.Add(words[i]);
-
-            } else if (words[i].Count() >= 13 && hardList.Count < 9) {
-                hardList.Add(words[i]);
+            if (words[i].Count() <= wordLengthMax && gameOptions.Count < limit){
+                gameOptions.Add(words[i]);
             }
         }
+
+        return gameOptions;
     }
    
-    //Allow user to select the word difficulty
     public static int DifficultySelector(){
         string userInput;
 
