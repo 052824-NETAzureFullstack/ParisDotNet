@@ -14,6 +14,7 @@ The player has to continue, either entering the word "Fizz", or selecting an opt
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 
 public class FizzBuzz {    
@@ -71,6 +72,14 @@ public class FizzBuzz {
             menuList.Add(cpuAnswer);
         } 
 
+        foreach (string option in userOptions){
+            Console.WriteLine(option);
+        }
+
+         foreach (string item in menuList){
+            Console.WriteLine(item);
+        }
+
         //Create a unique menu with 3 values: 2 dummy (but realistically possible) vals, and the answer
         while (menuList.Count < 4){
             rando = new Random().Next(0,userOptions.Count);
@@ -127,7 +136,7 @@ public class FizzBuzz {
                 userAnswer = UserPlayMenu(i,cpuOutput,min, max);
                 
                 if (userAnswer == cpuOutput){
-                    userWins = (i == max) ? "CONGRATULATIONS! YOU HAVE WON THE GAME!" : "";
+                    userWins = (i == max) ? "\n\n~~~~~~~~~~CONGRATULATIONS! YOU HAVE WON THE GAME~~~~~~~~~~": "";
                     Console.WriteLine($"\n {userAnswer} IS CORRECT!" + userWins);
                     Console.WriteLine("\nCPU TURN: " + (cpuOutput).ToString());
                 } else {
