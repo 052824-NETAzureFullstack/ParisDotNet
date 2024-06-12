@@ -1,7 +1,7 @@
 ﻿/*To DO
 
 //PreProcessing
--List difficulty splitter should be 6
+-List difficulty splitter should be 4
 -remove duplicates
 -Sort words by count
 -format vocab words into 3 dif files or categories based on length
@@ -41,17 +41,33 @@ public class HangMan {
 
     public static void Main(string[] args){
         List<string> words;
+        List<string> easy = new List<string>();
+        List<string> medium = new List<string>();
+        List<string> hard = new List<string>();
 
         words = PreProcessTxtFile("-");
 
         //Sort by count and then divide each section by 6 to separate into appropriate difficulty list (if shortest is still 5-17)
         words.Sort((a,b) => a.Length - b.Length);
-        
-        for (int i = 0; i < words.Count(); i++){
-            Console.WriteLine(words[i]);
+
+        Testing(words); 
+
+        //Bucketize words by difficulty/Count
+        for (int i = 0; i < words.Count; i++){
+            if (words[i].Count() <= 9){
+                easy.Add(words[i]);
+
+            } else if (words[i].Count() > 9 && words[i].Count() < 13) {
+                medium.Add(words[i]);
+
+            } else {
+                hard.Add(words[i]);
+            }
         }
 
-        
+        Console.WriteLine($"easy.Count = {easy.Count}");
+        Console.WriteLine($"medium.Count = {medium.Count}");
+        Console.WriteLine($"hard.Count = {hard.Count}");
     }
 
     public static List<string> PreProcessTxtFile(string deliminator){
@@ -74,7 +90,6 @@ public class HangMan {
 
             } while (line != null);
 
-            //Testing(words);
             sr.Close();
             Console.ReadLine();
 
