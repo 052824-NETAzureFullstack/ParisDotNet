@@ -50,6 +50,8 @@ public class HangMan {
 
         //Divvy the words into buckets (lists) of 9 words a piece based on word length (easy <= 9 words, med <= 12 words, and hard <= 17 words), return game word
         gameWord = GenerateGameWord(words,difficulty);
+
+        Console.WriteLine(gameWord);
     }
 
     public static List<string> PreProcessTxtFile(string deliminator){
@@ -187,7 +189,6 @@ public class HangMan {
     }
 
 }
-
 
 
 /*
