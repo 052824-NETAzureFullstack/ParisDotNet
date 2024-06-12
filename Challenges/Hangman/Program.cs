@@ -162,7 +162,7 @@ public class HangMan {
         Console.WriteLine("[3] - Hard\n");
         
         do {
-            Console.WriteLine("Please select your difficulty by entering either 1, 2, or 3: ");
+            Console.Write("Please select your difficulty by entering either 1, 2, or 3: ");
             userInput = Console.ReadLine();
 
         } while(!IsValidIntInput(userInput,1,3));
