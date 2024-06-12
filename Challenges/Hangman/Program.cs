@@ -37,13 +37,13 @@ public class HangMan {
         difficulty = DifficultySelector();
 
         //Divvy the words into buckets (lists) of 9 words a piece based on word length (easy <= 9 words, med <= 12 words, and hard <= 17 words), return game word
-        (string gameWord, string level) = GenerateGameWord(words,difficulty);
+        (string gameWord, string level, double multiplier) = GenerateGameWord(words,difficulty);
 
         //Displays the ghetto Hangman figure, the level, number of letters, and the hidden word in the console
         DisplayHangman(gameWord,level);
 
         //Allows user to guess word until countdown == 0
-        RunGame(gameWord);
+        RunGame(gameWord,multiplier);
     }
 
     public static List<string> PreProcessTxtFile(string deliminator){
@@ -212,13 +212,16 @@ public class HangMan {
 
     }
 
-    public static void RunGame(string gameWord, string level){
-        int countdown = gameWord.count
-          Console.Write("Enter your guess for each letter of the word in contiguous fashion: ");
+    public static void RunGame(string gameWord, double multiplier){
+        int countdown = (int)(gameWord.Count() * multiplier);
+        Console.WriteLine($"COUNTDOWN: {countdown}\n");
+        Console.Write("Enter your guess in contiguous fashion: ");
         
         do {
             Console.Read();
-        } while ();
+            countdown--;
+        } while (countdown > 0 );
+        
     }
 }
 
