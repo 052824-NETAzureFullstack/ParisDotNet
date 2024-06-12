@@ -30,13 +30,6 @@ public class FizzBuzz {
         //First run is to fill a Hashset (so no duplicates) with realistic options for user selection
         userOptions = SimulateRun(min,max,false);
 
-        foreach (string option in userOptions){
-            Console.WriteLine(option);
-        }
-
-        Console.WriteLine(userOptions.Count);
-
-
         //User could pick a range that has less than 3 possible userOptions, if so, artificially fill list with other fake values
         if (userOptions.Count < 4){
             MenuOptionSteroids();
@@ -78,14 +71,6 @@ public class FizzBuzz {
         if (i.ToString() != cpuAnswer){
             menuList.Add(cpuAnswer);
         } 
-
-        foreach (string option in userOptions){
-            Console.WriteLine(option);
-        }
-
-         foreach (string item in menuList){
-            Console.WriteLine(item);
-        }
 
         //Create a unique menu with 3 values: 2 dummy (but realistically possible) vals, and the answer
         while (menuList.Count < 4){
