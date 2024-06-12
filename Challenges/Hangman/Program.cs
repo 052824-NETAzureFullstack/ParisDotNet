@@ -194,6 +194,7 @@ public class HangMan {
             hiddenWord += "* ";
         }
 
+        //https://inventwithpython.com/bigbookpython/project34.html
         string hangman = 
         
          "       +---+     \n" +
