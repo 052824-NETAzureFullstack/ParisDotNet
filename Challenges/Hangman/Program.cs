@@ -39,7 +39,11 @@ public class HangMan {
         //Divvy the words into buckets (lists) of 9 words a piece based on word length (easy <= 9 words, med <= 12 words, and hard <= 17 words), return game word
         (string gameWord, string level) = GenerateGameWord(words,difficulty);
 
+        //Displays the ghetto Hangman figure, the level, number of letters, and the hidden word in the console
         DisplayHangman(gameWord,level);
+
+        //Allows user to guess word until countdown == 0
+        RunGame(gameWord);
     }
 
     public static List<string> PreProcessTxtFile(string deliminator){
@@ -97,36 +101,41 @@ public class HangMan {
         Console.WriteLine($"max = {max}");
     }
 
-    public static (string,string) GenerateGameWord(List<string> words, int difficulty){
+    public static (string,string, double) GenerateGameWord(List<string> words, int difficulty){
         int limit = 9;
         int wordLengthMax;
         string level;
+        double multiplier;
 
         //Create a list of 9 appropriately sized words with a word length based on difficulty selected
         switch(difficulty){
         case 1:
             wordLengthMax = 9;
             level = "Easy";
+            multiplier = 2;
             break;
 
         case 2:
             wordLengthMax = 12;
             level = "Medium";
+            multiplier = 1.5;
             break;
 
         case 3:
             wordLengthMax = 17;
             level = "Hard";
+            multiplier = 1.2;
             break;
 
         default:
             wordLengthMax = 11;
             level = "Error Level";
+            multiplier = 1.7;
             break;
         }
 
         //Shaves down our original, 130+ word list into 9 filled with only words of the appropriate length, then randomly selects one of those words to return (and returns difficult string for later display)
-        return (BucketizeWords(words, wordLengthMax,limit)[new Random().Next(limit)], level);
+        return (BucketizeWords(words, wordLengthMax,limit)[new Random().Next(limit)], level, multiplier);
 
     }
 
@@ -179,6 +188,12 @@ public class HangMan {
     }
 
     public static void DisplayHangman(string gameWord, string level){
+        string hiddenWord = "";
+
+        for (int i = 0; i < gameWord.Count(); i++){
+            hiddenWord += "* ";
+        }
+
         string hangman = 
         
          "       +---+     \n" +
@@ -191,13 +206,19 @@ public class HangMan {
         
         Console.WriteLine("*******************************");
         Console.WriteLine($"LEVEL: {level}");
-        Console.WriteLine($"WORD:  {gameWord}\n");
+        Console.WriteLine($"LETTERS: {gameWord.Count()}");
+        Console.WriteLine($"WORD:  {hiddenWord}\n");
         Console.WriteLine(hangman);
 
     }
 
-    public static void RunGame(){
+    public static void RunGame(string gameWord, string level){
+        int countdown = gameWord.count
+          Console.Write("Enter your guess for each letter of the word in contiguous fashion: ");
         
+        do {
+            Console.Read();
+        } while ();
     }
 }
 
