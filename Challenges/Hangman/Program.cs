@@ -26,9 +26,12 @@ using System.Net.NetworkInformation;
 using System.IO;
 
 public class HangMan {
+    public static List<char> allGuesses = new List<char>();
+
 
     public static void Main(string[] args){
         List<string> words;
+
         int difficulty;
         int countdown;
 
@@ -197,12 +200,6 @@ public class HangMan {
     }
 
     public static void DisplayHangman(string gameWord, string level){
-        string hiddenWord = "";
-
-        for (int i = 0; i < gameWord.Count(); i++){
-            hiddenWord += "* ";
-        }
-
         //https://inventwithpython.com/bigbookpython/project34.html
         string hangman = 
         
@@ -223,13 +220,24 @@ public class HangMan {
 
     public static void RunGame(string gameWord, int countdown){
         int interator = 0;
-        List<char> allGuesses = new List<char>();
-
-        Console.WriteLine($"COUNTDOWN: {countdown}\t WORD: {hiddenWord}");
+        string guesses = "";
+        string hiddenWord = "";
+        string input;
 
         foreach (char guess in allGuesses){
-            Console.Write($"Enter your guess in contiguous fashion: ");
+            guesses += guess + " ";
         }
+
+        for (int i = 0; i < gameWord.Count(); i++){
+            hiddenWord += "* ";
+        }
+
+
+        Console.WriteLine($"COUNTDOWN: {countdown}\t WORD: {hiddenWord}\t GUESSED: {guesses}");
+        Console.Write($"Enter your guess: ");
+        input = Console.ReadLine();
+
+        allGuesses.Add();
 
         //Need validation here
         userGuess = (char)Console.Read();
@@ -241,6 +249,19 @@ public class HangMan {
         //Console.WriteLine($"COUNTDOWN: {countdown}\n");
         //Console.Clear(); 
 
+    }
+
+    public static bool IsValidCharInput(string userInput){
+        char letter;
+
+        try{
+            letter = Char.Parse(userInput);
+        } catch(Exception){
+            Console.WriteLine("\nInput type should be only a single letter value, Please check your entry and try Again...\n");
+            return false;
+        }
+
+        return true;
     }
 }
 
