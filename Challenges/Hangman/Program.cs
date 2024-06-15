@@ -24,6 +24,7 @@
 using System;
 using System.Net.NetworkInformation;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 
 public class HangMan {
     public static List<char> allGuesses = new List<char>();
@@ -147,12 +148,14 @@ public class HangMan {
         }
 
         //Shaves down our original, 130+ word list into 9 filled with only words of the appropriate length, then randomly selects one of those words to return (and returns difficult string for later display)
-        return (BucketizeWords(words, wordLengthMax,limit)[new Random().Next(limit)], level, multiplier);
+        return (BucketizeWords(words, wordLengthMax,limit), level, multiplier);
 
     }
 
-    public static List<string> BucketizeWords(List<string> words, int wordLengthMax, int limit){
+    public static string BucketizeWords(List<string> words, int wordLengthMax, int limit){
         List<string> gameOptions = new List<string>();
+        string lowerCaseGameWord;
+        string finalGameWord = "";
 
         //Bucketize words by difficulty/Count
         for (int i = 0; i < words.Count; i++){
@@ -161,7 +164,17 @@ public class HangMan {
             }
         }
 
-        return gameOptions;
+        lowerCaseGameWord = gameOptions[new Random().Next(limit)];
+
+        for (int x = 0; x < lowerCaseGameWord.Length; x++){
+            if (x == 0){
+                finalGameWord += Char.ToString(lowerCaseGameWord[x]).ToUpper();
+            } else{
+                finalGameWord += lowerCaseGameWord[x];
+            }
+        }
+
+        return finalGameWord;
     }
    
     public static int DifficultySelector(){
@@ -213,7 +226,8 @@ public class HangMan {
         
         Console.WriteLine("*******************************");
         Console.WriteLine($"LEVEL: {level}");
-        Console.WriteLine($"LETTERS: {gameWord.Count()}\n");
+        Console.WriteLine($"LETTERS: {gameWord.Count()}");
+        Console.WriteLine($"LEVEL: \"{gameWord}\" (DISPLAYED FOR TESTING PURPOSES ONLY...)\n");
         Console.WriteLine(hangman);
 
     }
@@ -226,6 +240,7 @@ public class HangMan {
         foreach (char guess in allGuesses){
             guesses += guess + " ";
         }
+
 
         for (int i = 0; i < gameWord.Count(); i++){
             hiddenWord += "* ";
