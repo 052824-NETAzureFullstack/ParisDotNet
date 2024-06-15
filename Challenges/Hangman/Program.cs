@@ -213,13 +213,12 @@ public class HangMan {
         
         Console.WriteLine("*******************************");
         Console.WriteLine($"LEVEL: {level}");
-        Console.WriteLine($"LETTERS: {gameWord.Count()}");
+        Console.WriteLine($"LETTERS: {gameWord.Count()}\n");
         Console.WriteLine(hangman);
 
     }
 
     public static void RunGame(string gameWord, int countdown){
-        int interator = 0;
         string guesses = "";
         string hiddenWord = "";
         string input;
@@ -233,22 +232,15 @@ public class HangMan {
         }
 
 
-        Console.WriteLine($"COUNTDOWN: {countdown}\t WORD: {hiddenWord}\t GUESSED: {guesses}");
+        Console.WriteLine($"COUNTDOWN: {countdown}\t  \tWORD: {hiddenWord}\t   \tGUESSED: {guesses}");
         Console.Write($"Enter your guess: ");
-        input = Console.ReadLine();
-
-        allGuesses.Add();
-
-        //Need validation here
-        userGuess = (char)Console.Read();
-        if (userGuess == gameWord[interator]){
-            interator++;
-            //Console.Write($"{userGuess}");
-        }
         
-        //Console.WriteLine($"COUNTDOWN: {countdown}\n");
-        //Console.Clear(); 
+        do {
+            input = Console.ReadLine();
+        } while(!IsValidCharInput(input));
 
+        allGuesses.Add(Char.Parse(input));
+        Console.Clear(); 
     }
 
     public static bool IsValidCharInput(string userInput){
