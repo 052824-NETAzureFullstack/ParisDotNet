@@ -15,7 +15,7 @@ using System.IO;
 using System.Security.Cryptography.X509Certificates;
 
 public class HangMan {
-    public static List<char> allGuesses = new List<char>();
+    public static List<string> allGuesses = new List<string>();
 
     public static void Main(string[] args){
         List<string> words;
@@ -38,11 +38,7 @@ public class HangMan {
         //Hides the game word
         hiddenWord = EncryptWord(gameWord, false);
     
-        while(countdown > 0){
-            if (userVictory){
-                Console.WriteLine("CONGRATULATIONS, YOU HAVE ACHIEVED VICTORY!");
-            }
-
+        while(countdown > 0 && !userVictory){
             //Console.Clear(); 
 
             //Displays the ghetto Hangman figure, the level, number of letters, and the hidden word in the console
@@ -50,7 +46,10 @@ public class HangMan {
 
             //Allows user to guess word until countdown == 0
             (countdown, error, hiddenWord, userVictory) = RunGame(gameWord,countdown, error, hiddenWord);
+                
         }
+
+        Console.WriteLine("\nCONGRATULATIONS, YOU HAVE ACHIEVED VICTORY!\n");
     }
 
     public static List<string> PreProcessTxtFile(string deliminator){
@@ -229,7 +228,7 @@ public class HangMan {
         Console.WriteLine("*******************************");
         Console.WriteLine($"LEVEL: {level}");
         Console.WriteLine($"LETTERS: {gameWord.Count()}");
-        Console.WriteLine($"ANSWER: {gameWord} (DISPLAYED FOR TESTING PURPOSES ONLY...)\n");
+        Console.WriteLine($"ANSWER: \"{gameWord}\" (DISPLAYED FOR TESTING PURPOSES ONLY...)\n");
         Console.WriteLine(hangman);
     }
 
@@ -238,7 +237,7 @@ public class HangMan {
         bool userVictory = false;
         string input;
 
-        foreach (char guess in allGuesses){
+        foreach (string guess in allGuesses){
             guesses += guess + " ";
         }
 
@@ -251,7 +250,7 @@ public class HangMan {
         error = IsValidGuess(input, gameWord);
 
         if (error == "NONE"){
-            allGuesses.Add(Char.Parse(input));
+            allGuesses.Add(input);
             (hiddenWord,userVictory,countdown) = IsGuessCorrect(input, gameWord, hiddenWord, countdown);
         }
 
@@ -267,7 +266,7 @@ public class HangMan {
         } else if (userInput.Length != 1 && userInput.Length != gameWord.Count()){
             error = "Guesses must either only be a single letter or the entire word. Please try again...";
 
-        } else if (allGuesses.Contains(char.Parse(userInput))){
+        } else if (allGuesses.Contains(userInput)){
             error = "Guesses must be unique! Please avoid re-guessing previous guesses and try again...";
         } else {
             error = "NONE";
@@ -280,13 +279,14 @@ public class HangMan {
         //Ensure that case sensitivity will not affect game results
         gameWord = gameWord.ToLower();
         userInput = userInput.ToLower();
-        
-        if(gameWord.Contains(userInput)){
+
+        if (userInput == gameWord){
+            hiddenWord = gameWord;
+
+        } else if (gameWord.Contains(userInput)){
             hiddenWord = RevealHiddenWord(userInput, gameWord, hiddenWord);
             countdown--;
 
-        } else if (userInput == gameWord){
-            hiddenWord = RevealHiddenWord(userInput, gameWord, hiddenWord);
         } else {
             //If users guess was valid but completely incorrect...
             countdown--;
