@@ -274,18 +274,26 @@ public class HangMan {
 
     public static void IsGuessCorrect(string userInput, string gameWord, string hiddenWord){
         List<int> occurrences = new List<int>();
+        string[] hiddenNoSpace = hiddenWord.Split(' ');
+        string revealedWord = "";
 
         //Ensure that case sensitivity will not affect game results
         gameWord = gameWord.ToLower();
         userInput = userInput.ToLower();
-
-        
         
         if(gameWord.Contains(userInput)){
             //Find all occurrences of the correct user guess in gamewWord string by index
             for (int i = 0; i < gameWord.Count(); i++){
                 occurrences.Add(gameWord.IndexOf(userInput));
             }
+
+            //Reveal correct user input at the appropriate index within the hidden word
+            foreach (int index in occurrences){
+                hiddenNoSpace[index] = userInput;
+            }
+            
+            EncryptWord(String.Concat(hiddenNoSpace),true);
+
 
             //Update hidden word(s) using index
             //countdown--;
@@ -300,11 +308,19 @@ public class HangMan {
         }
     }
 
-    public static string EncryptWord(string gameWord){
+    public static string EncryptWord(string gameWord, bool partiallyRevelead){
         string hiddenWord = "";
 
-        for (int i = 0; i < gameWord.Count(); i++){
-            hiddenWord += "* ";
+        //Replace gameWord with stars if user has not yet guessed anything
+        if (!partiallyRevelead){
+            for (int i = 0; i < gameWord.Count(); i++){
+                hiddenWord += "* ";
+            }
+        } else {
+            //Format the hidden word to reveal users correct guesses spaced neatly
+            for (int i = 0; i < gameWord.Count(); i++){
+                hiddenWord += gameWord[i] + " ";
+            }
         }
 
         return hiddenWord;
