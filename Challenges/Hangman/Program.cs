@@ -20,6 +20,7 @@
 -re print every turn?
 */
 
+
 using System;
 using System.Net.NetworkInformation;
 using System.IO;
@@ -29,6 +30,7 @@ public class HangMan {
     public static void Main(string[] args){
         List<string> words;
         int difficulty;
+        int countdown;
 
         //Removes definitions, white spaces, and duplicates from .txt file
         words = PreProcessTxtFile("-");
@@ -39,11 +41,18 @@ public class HangMan {
         //Divvy the words into buckets (lists) of 9 words a piece based on word length (easy <= 9 words, med <= 12 words, and hard <= 17 words), return game word
         (string gameWord, string level, double multiplier) = GenerateGameWord(words,difficulty);
 
-        //Displays the ghetto Hangman figure, the level, number of letters, and the hidden word in the console
-        DisplayHangman(gameWord,level);
+        //Calculate # of tries based on selected difficulty
+        countdown = (int)(gameWord.Count() * multiplier);
 
-        //Allows user to guess word until countdown == 0
-        RunGame(gameWord,multiplier);
+        while(countdown > 0){
+            //Displays the ghetto Hangman figure, the level, number of letters, and the hidden word in the console
+            DisplayHangman(gameWord,level);
+
+            //Allows user to guess word until countdown == 0
+            RunGame(gameWord,countdown);
+
+            countdown--;
+        }
     }
 
     public static List<string> PreProcessTxtFile(string deliminator){
@@ -208,29 +217,25 @@ public class HangMan {
         Console.WriteLine("*******************************");
         Console.WriteLine($"LEVEL: {level}");
         Console.WriteLine($"LETTERS: {gameWord.Count()}");
-        Console.WriteLine($"WORD:  {hiddenWord}\n");
         Console.WriteLine(hangman);
 
     }
 
-    public static void RunGame(string gameWord, double multiplier){
-        int countdown = (int)(gameWord.Count() * multiplier);
+    public static void RunGame(string gameWord, int countdown){
         int interator = 0;
-        char userGuess = '_';
+        List<char> allGuesses = new List<char>();
 
-        Console.Write($"COUNTDOWN: {countdown}\n");
-        Console.Write($"Enter your guess in contiguous fashion: {userGuess}");
-        
+        Console.WriteLine($"COUNTDOWN: {countdown}\t WORD: {hiddenWord}");
 
-        while(countdown > 0){
-            //Need validation here
-            userGuess = (char)Console.Read();
-            if (userGuess == gameWord[interator]){
-                interator++;
-                //Console.Write($"{userGuess}");
-            }
-            countdown--; 
-    
+        foreach (char guess in allGuesses){
+            Console.Write($"Enter your guess in contiguous fashion: ");
+        }
+
+        //Need validation here
+        userGuess = (char)Console.Read();
+        if (userGuess == gameWord[interator]){
+            interator++;
+            //Console.Write($"{userGuess}");
         }
         
         //Console.WriteLine($"COUNTDOWN: {countdown}\n");
@@ -238,7 +243,6 @@ public class HangMan {
 
     }
 }
-
 
 /*
 Hangman - Play a game of hangman with the computer. 
