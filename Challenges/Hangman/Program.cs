@@ -36,7 +36,7 @@ public class HangMan {
         hiddenWord = EncryptWord(gameWord);
     
         while(countdown > 0){
-            Console.Clear(); 
+            //Console.Clear(); 
 
             //Displays the ghetto Hangman figure, the level, number of letters, and the hidden word in the console
             DisplayHangman(gameWord,level);
@@ -280,7 +280,7 @@ public class HangMan {
         if(gameWord.Contains(userInput)){
             //Update hidden word(s) using index
             //countdown--;
-            Console.WriteLine("Index of correct guess: ", gameWord.IndexOf(userInput));
+            Console.WriteLine($"Index of correct guess: {gameWord.IndexOf(userInput)}");
         } else if (userInput == gameWord){
             //No need to update countdown?
             //Update hidden word(s) using index
