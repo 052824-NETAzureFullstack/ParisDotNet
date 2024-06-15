@@ -32,6 +32,8 @@ public class HangMan {
     public static void Main(string[] args){
         List<string> words;
         string error = "NONE";
+        string hiddenWord = "";
+
         int difficulty;
         int countdown;
 
@@ -44,8 +46,11 @@ public class HangMan {
         //Divvy the words into buckets (lists) of 9 words a piece based on word length (easy <= 9 words, med <= 12 words, and hard <= 17 words), return game word
         (string gameWord, string level, double multiplier) = GenerateGameWord(words,difficulty);
 
-        //Calculate # of tries based on selected difficulty
-        countdown = (int)(gameWord.Count() * multiplier);
+
+
+        //Calculate # of tries based on selected difficulty and hide word
+        GamePrep();
+    
 
         while(countdown > 0){
             Console.Clear(); 
@@ -118,6 +123,9 @@ public class HangMan {
         int wordLengthMax;
         string level;
         double multiplier;
+        string gameWord;
+        int countdown;
+
 
         //Create a list of 9 appropriately sized words with a word length based on difficulty selected
         switch(difficulty){
@@ -146,8 +154,13 @@ public class HangMan {
             break;
         }
 
-        //Shaves down our original, 130+ word list into 9 filled with only words of the appropriate length, then randomly selects one of those words to return (and returns difficult string for later display)
-        return (BucketizeWords(words, wordLengthMax,limit), level, multiplier);
+        //Shaves down our original, 130+ word list into 9 filled with only words of the appropriate length, then randomly selects one of those words
+        gameWord = BucketizeWords(words, wordLengthMax,limit);
+
+        //Calculate # of tries (countdown) based on selected difficulty     
+        countdown = (int)(gameWord.Count() * multiplier);
+
+        return (gameWord, level, countdown);
 
     }
 
@@ -232,15 +245,10 @@ public class HangMan {
 
     public static (int,string) RunGame(string gameWord, int countdown, string error){
         string guesses = "";
-        string hiddenWord = "";
         string input;
 
         foreach (char guess in allGuesses){
             guesses += guess + " ";
-        }
-
-        for (int i = 0; i < gameWord.Count(); i++){
-            hiddenWord += "* ";
         }
 
         Console.WriteLine($"ERROR: {error}"); 
@@ -256,9 +264,7 @@ public class HangMan {
             countdown--;
         }
 
-        IsGuessCorrect(input);
-
-     
+        IsGuessCorrect(input, gameWord);
 
         return (countdown, error);
     }
@@ -280,14 +286,21 @@ public class HangMan {
     }
 
     public static void IsGuessCorrect(string userInput, string gameWord){
-   
-
-        if(gameWord.Contains(input) || input == gameWord){
+        //Update hidden word
+        //if hidden word == gameWord - user wins
+        if(gameWord.Contains(userInput)){
             result = ;
+        } else if (userInput == gameWord){
 
         }
     }
 
+    public static void GamePrep(string userInput, string gameWord){
+
+            for (int i = 0; i < gameWord.Count(); i++){
+                hiddenWord += "* ";
+            }
+    }
 }
 
 /*
