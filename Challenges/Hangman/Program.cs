@@ -29,7 +29,6 @@ using System.Security.Cryptography.X509Certificates;
 public class HangMan {
     public static List<char> allGuesses = new List<char>();
 
-
     public static void Main(string[] args){
         List<string> words;
         string error = "NONE";
@@ -252,21 +251,14 @@ public class HangMan {
         //Perform validation to ensure user input is a single character or an attempt at the entire word
         error = IsValidGuess(input, gameWord);
 
-        if (!input.Any(char.IsDigit) && (input.Length == 1 || input.Length == gameWord.Count())){
-
-            if (allGuesses.Contains(input)){
-
-            }
-            if(gameWord.Contains(input) || input == gameWord){
-                result = ;
-
-            }
+        if (error == "NONE"){
             allGuesses.Add(Char.Parse(input));
             countdown--;
-            showError = false;
-        } else { 
-            showError = true;
         }
+
+        IsGuessCorrect(input);
+
+     
 
         return (countdown, error);
     }
@@ -276,14 +268,26 @@ public class HangMan {
 
         if (userInput.Any(char.IsDigit)){
             error = "Guesses should only contain letters, not numbers.";
-        }
-
-        if (userInput.Length != 1 || userInput.Length != gameWord.Count()){
+            
+        } else if (userInput.Length != 1 || userInput.Length != gameWord.Count()){
             error = "Guesses must either only be a single letter or the entire word. Please try again...";
+
+        } else if (allGuesses.Contains(char.Parse(userInput))){
+            error = "Guesses must be unique! Please avoid re-guessing previous guesses and try again...";
         }
 
         return error;
     }
+
+    public static void IsGuessCorrect(string userInput, string gameWord){
+   
+
+        if(gameWord.Contains(input) || input == gameWord){
+            result = ;
+
+        }
+    }
+
 }
 
 /*
