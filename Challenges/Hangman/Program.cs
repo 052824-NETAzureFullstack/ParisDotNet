@@ -273,14 +273,22 @@ public class HangMan {
     }
 
     public static void IsGuessCorrect(string userInput, string gameWord, string hiddenWord){
+        List<int> occurrences = new List<int>();
+
         //Ensure that case sensitivity will not affect game results
         gameWord = gameWord.ToLower();
         userInput = userInput.ToLower();
+
+        
         
         if(gameWord.Contains(userInput)){
+            //Find all occurrences of the correct user guess in gamewWord string by index
+            for (int i = 0; i < gameWord.Count(); i++){
+                occurrences.Add(gameWord.IndexOf(userInput));
+            }
+
             //Update hidden word(s) using index
             //countdown--;
-            Console.WriteLine($"Index of correct guess: {gameWord.IndexOf(userInput)}");
         } else if (userInput == gameWord){
             //No need to update countdown?
             //Update hidden word(s) using index
