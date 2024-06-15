@@ -295,16 +295,21 @@ public class HangMan {
 
     public static string EncryptWord(string gameWord, bool partiallyRevelead){
         string hiddenWord = "";
+        string secret;
 
         //Replace gameWord with stars if user has not yet guessed anything
         if (!partiallyRevelead){
             for (int i = 0; i < gameWord.Count(); i++){
-                hiddenWord += "* ";
+                //Ensures end of word does have any extra whitespace
+                secret = (i == gameWord.Count()-1) ? "*" : "* ";
+                hiddenWord += secret;
             }
         } else {
             //Format the hidden word to reveal users correct guesses spaced neatly
             for (int i = 0; i < gameWord.Count(); i++){
-                hiddenWord += gameWord[i] + " ";
+                //Ensures end of word does have any extra whitespace
+                secret = (i == gameWord.Count()-1) ? "*" : "* ";
+                hiddenWord += secret;
             }
         }
 
