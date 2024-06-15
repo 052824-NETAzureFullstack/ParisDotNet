@@ -39,7 +39,7 @@ public class HangMan {
         hiddenWord = EncryptWord(gameWord, false);
     
         while(countdown > 0 && !userVictory){
-            //Console.Clear(); 
+            Console.Clear(); 
 
             //Displays the ghetto Hangman figure, the level, number of letters, and the hidden word in the console
             DisplayHangman(gameWord,level);
@@ -228,7 +228,7 @@ public class HangMan {
         Console.WriteLine("*******************************");
         Console.WriteLine($"LEVEL: {level}");
         Console.WriteLine($"LETTERS: {gameWord.Count()}");
-        Console.WriteLine($"ANSWER: \"{gameWord}\" (DISPLAYED FOR TESTING PURPOSES ONLY...)\n");
+        //Console.WriteLine($"ANSWER: \"{gameWord}\" (DISPLAYED FOR TESTING PURPOSES ONLY...)\n");
         Console.WriteLine(hangman);
     }
 
@@ -285,14 +285,16 @@ public class HangMan {
 
         } else if (gameWord.Contains(userInput)){
             hiddenWord = RevealHiddenWord(userInput, gameWord, hiddenWord);
-            countdown--;
+            if (hiddenWord != gameWord){
+                countdown--;
+            }
 
         } else {
             //If users guess was valid but completely incorrect...
             countdown--;
         }
 
-        return (hiddenWord,(hiddenWord == gameWord),countdown);
+        return (hiddenWord, (hiddenWord == gameWord), countdown);
     }
 
     public static string EncryptWord(string gameWord, bool partiallyRevelead){
@@ -333,9 +335,9 @@ public class HangMan {
             //Swap out hidden word "*" with actual correct letter every time it appears in word
             hiddenNoSpace[occurrences[i]] = userInput;
         }
-        
-        //Reformat hidden word so that each character is neatly spaced
-        return EncryptWord(String.Concat(hiddenNoSpace),true);
+
+        //Reformat hidden word so that each character is neatly spaced unless the game is over, if so then just return the game word
+        return (String.Concat(hiddenNoSpace) == gameWord) ? gameWord: EncryptWord(String.Concat(hiddenNoSpace),true);
     }
 
 }
