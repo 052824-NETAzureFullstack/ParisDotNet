@@ -32,7 +32,7 @@ public class HangMan {
 
     public static void Main(string[] args){
         List<string> words;
-
+        bool showError = false;
         int difficulty;
         int countdown;
 
@@ -49,13 +49,13 @@ public class HangMan {
         countdown = (int)(gameWord.Count() * multiplier);
 
         while(countdown > 0){
+            Console.Clear(); 
+
             //Displays the ghetto Hangman figure, the level, number of letters, and the hidden word in the console
             DisplayHangman(gameWord,level);
 
             //Allows user to guess word until countdown == 0
-            RunGame(gameWord,countdown);
-
-            countdown--;
+            (countdown,showError) = RunGame(gameWord,countdown, showError);
         }
     }
 
@@ -227,12 +227,11 @@ public class HangMan {
         Console.WriteLine("*******************************");
         Console.WriteLine($"LEVEL: {level}");
         Console.WriteLine($"LETTERS: {gameWord.Count()}");
-        Console.WriteLine($"LEVEL: \"{gameWord}\" (DISPLAYED FOR TESTING PURPOSES ONLY...)\n");
+        Console.WriteLine($"ANSWER: {gameWord} (DISPLAYED FOR TESTING PURPOSES ONLY...)\n");
         Console.WriteLine(hangman);
-
     }
 
-    public static void RunGame(string gameWord, int countdown){
+    public static (int,bool) RunGame(string gameWord, int countdown, bool showError){
         string guesses = "";
         string hiddenWord = "";
         string input;
@@ -241,30 +240,39 @@ public class HangMan {
             guesses += guess + " ";
         }
 
-
         for (int i = 0; i < gameWord.Count(); i++){
             hiddenWord += "* ";
         }
 
+        if (showError){
+            Console.WriteLine("ERROR: Input type should either be only a single letter or the entire word, Please try again...\n"); 
+        } else {
+            Console.WriteLine("ERROR: None\n");
+        }
 
         Console.WriteLine($"COUNTDOWN: {countdown}\t  \tWORD: {hiddenWord}\t   \tGUESSED: {guesses}");
         Console.Write($"Enter your guess: ");
-        
-        do {
-            input = Console.ReadLine();
-        } while(!IsValidCharInput(input));
+        input = Console.ReadLine();
 
-        allGuesses.Add(Char.Parse(input));
-        Console.Clear(); 
+        if (!input.Any(char.IsDigit) && (input.Length == 1 || input.Length == gameWord.Count())){
+            allGuesses.Add(Char.Parse(input));
+            countdown--;
+            showError = false;
+        } else { 
+            showError = true;
+        }
+
+        return (countdown, showError);
     }
 
-    public static bool IsValidCharInput(string userInput){
-        char letter;
+    public static bool IsValidGuess(string userInput){
+
 
         try{
-            letter = Char.Parse(userInput);
+            
+
         } catch(Exception){
-            Console.WriteLine("\nInput type should be only a single letter value, Please check your entry and try Again...\n");
+            
             return false;
         }
 
