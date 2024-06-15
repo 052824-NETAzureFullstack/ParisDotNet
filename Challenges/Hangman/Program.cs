@@ -1,27 +1,4 @@
-﻿/*To DO
-
--Create a hashmap (dictionary) for user guesses (keys will be the guess and val will be how many times that letter has been guessed)?
--Total guesses =  Hard: word.Count + 3 | Medium: word.Count + (word.Count/2) | Easy = word.Count * 2
--Countdown from total guesses on each turn
-
-//Challenge - do this for level easy
--Is it possible to do it this way and allow user to reveal all similar letters at the same time?
--if not maybe only implement this on the hardest difficulty, forcing the user to have to guess letter b letter one index at a time
-
--if level is med or hard, allow user to reveal all letters in the word simultaneously
-
--Iterate through the word-string and removeAt every time a player gets a correct guess
--When string,Count == 0, user wins! else if countdown == 0, user loses
-
--If a word has multiple letters, should all similar letters get revealed? or should user have to guess letter by position... the latter would prob be too hard for user...
--Result array should be filled with underscores for word.count
--On screen, initially just print out underscores equal to word.Count
--Every correct guess replaces result array with correct answer
--re print every turn?
-*/
-
-
-using System;
+﻿using System;
 using System.Net.NetworkInformation;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
@@ -54,7 +31,7 @@ public class HangMan {
             DisplayHangman(gameWord,level);
 
             //Allows user to guess word until countdown == 0
-            (countdown,error) = RunGame(gameWord,countdown, error);
+            (countdown,error) = RunGame(gameWord,countdown, error, hiddenWord);
         }
     }
 
@@ -238,7 +215,7 @@ public class HangMan {
         Console.WriteLine(hangman);
     }
 
-    public static (int,string) RunGame(string gameWord, int countdown, string error){
+    public static (int,string) RunGame(string gameWord, int countdown, string error, string hiddenWord){
         string guesses = "";
         string input;
 
@@ -256,10 +233,12 @@ public class HangMan {
 
         if (error == "NONE"){
             allGuesses.Add(Char.Parse(input));
+            IsGuessCorrect(input, gameWord);
+
             countdown--;
         }
 
-        IsGuessCorrect(input, gameWord);
+        
 
         return (countdown, error);
     }
@@ -281,12 +260,19 @@ public class HangMan {
     }
 
     public static void IsGuessCorrect(string userInput, string gameWord){
+        //Ensure that case sensitivity will not affect game results
+        gameWord = gameWord.ToLower();
+        userInput = userInput.ToLower();
+        
         //Update hidden word
-        //if hidden word == gameWord - user wins
+        //if hidden word == gameWord, user wins
         if(gameWord.Contains(userInput)){
-            result = ;
+            Console.WriteLine("Index of correct guess: ", gameWord.IndexOf(userInput));
         } else if (userInput == gameWord){
-
+            //No need to update countdown
+            //USER WINS!
+        } else {
+            //If users guess was completely incorrect...
         }
     }
 
