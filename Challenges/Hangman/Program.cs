@@ -319,19 +319,19 @@ public class HangMan {
     }
 
     public static string RevealHiddenWord(string userInput, string gameWord, string hiddenWord){
-        Dictionary<char, int> occurrences = new Dictionary<char, int>();
+        List<int> occurrences = new List<int>();
         string[] hiddenNoSpace = hiddenWord.Split(' ');
 
         //Find all occurrences of the correct user guess in gameWord string and populate a dict with char as key and index as val
         for (int i = 0; i < gameWord.Count(); i++){
             if (userInput == Char.ToString(gameWord[i])){
-                occurrences.Add(gameWord[i], i);
+                occurrences.Add(i);
             }
         }
 
-        foreach(KeyValuePair<char, int> occurrence in occurrences){
+        for (int i = 0; i < occurrences.Count(); i++){
             //Swap out hidden word "*" with actual correct letter every time it appears in word
-            hiddenNoSpace[occurrence.Value] = Char.ToString(occurrence.Key);
+            hiddenNoSpace[occurrences[i]] = userInput;
         }
         
         //Reformat hidden word so that each character is neatly spaced
