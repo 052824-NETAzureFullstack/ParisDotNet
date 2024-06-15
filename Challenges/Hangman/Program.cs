@@ -20,6 +20,7 @@ public class HangMan {
     public static void Main(string[] args){
         List<string> words;
         string error = "NONE";
+        bool userVictory = false;
         string hiddenWord;
         int difficulty;
 
@@ -33,16 +34,20 @@ public class HangMan {
         (string gameWord, string level, int countdown) = GenerateGameWord(words,difficulty);
 
         //Hides the game word
-        hiddenWord = EncryptWord(gameWord);
+        hiddenWord = EncryptWord(gameWord, false);
     
         while(countdown > 0){
-            //Console.Clear(); 
+            if (userVictory){
+                Console.WriteLine("CONGRATULATIONS, YOU HAVE ACHIEVED VICTORY!");
+            }
+
+            Console.Clear(); 
 
             //Displays the ghetto Hangman figure, the level, number of letters, and the hidden word in the console
             DisplayHangman(gameWord,level);
 
             //Allows user to guess word until countdown == 0
-            (countdown,error) = RunGame(gameWord,countdown, error, hiddenWord);
+            (countdown, error, hiddenWord, userVictory) = RunGame(gameWord,countdown, error, hiddenWord);
         }
     }
 
@@ -226,8 +231,9 @@ public class HangMan {
         Console.WriteLine(hangman);
     }
 
-    public static (int,string) RunGame(string gameWord, int countdown, string error, string hiddenWord){
+    public static (int,string,string,bool) RunGame(string gameWord, int countdown, string error, string hiddenWord){
         string guesses = "";
+        bool userVictory = false;
         string input;
 
         foreach (char guess in allGuesses){
@@ -244,12 +250,10 @@ public class HangMan {
 
         if (error == "NONE"){
             allGuesses.Add(Char.Parse(input));
-            IsGuessCorrect(input, gameWord, hiddenWord, countdown);
+            (hiddenWord,userVictory,countdown) = IsGuessCorrect(input, gameWord, hiddenWord, countdown);
         }
 
-        
-
-        return (countdown, error);
+        return (countdown, error, hiddenWord, userVictory);
     }
 
     public static string IsValidGuess(string userInput, string gameWord){
@@ -270,7 +274,7 @@ public class HangMan {
         return error;
     }
 
-    public static (string,bool) IsGuessCorrect(string userInput, string gameWord, string hiddenWord, int countdown){
+    public static (string,bool, int) IsGuessCorrect(string userInput, string gameWord, string hiddenWord, int countdown){
         //Ensure that case sensitivity will not affect game results
         gameWord = gameWord.ToLower();
         userInput = userInput.ToLower();
@@ -281,13 +285,12 @@ public class HangMan {
 
         } else if (userInput == gameWord){
             hiddenWord = RevealHiddenWord(userInput, gameWord, hiddenWord);
-            //USER WINS!
         } else {
             //If users guess was valid but completely incorrect...
             countdown--;
         }
 
-        return (hiddenWord,(hiddenWord == gameWord));
+        return (hiddenWord,(hiddenWord == gameWord),countdown);
     }
 
     public static string EncryptWord(string gameWord, bool partiallyRevelead){
