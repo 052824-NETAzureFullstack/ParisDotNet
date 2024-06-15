@@ -33,6 +33,8 @@ public class HangMan {
         //Divvy the words into buckets (lists) of 9 words a piece based on word length (easy <= 9 words, med <= 12 words, and hard <= 17 words), return game word
         (string gameWord, string level, int countdown) = GenerateGameWord(words,difficulty);
 
+        Console.WriteLine($"gameWord.Length before encryption: {gameWord.Count()}");
+
         //Hides the game word
         hiddenWord = EncryptWord(gameWord, false);
     
@@ -41,7 +43,7 @@ public class HangMan {
                 Console.WriteLine("CONGRATULATIONS, YOU HAVE ACHIEVED VICTORY!");
             }
 
-            Console.Clear(); 
+            //Console.Clear(); 
 
             //Displays the ghetto Hangman figure, the level, number of letters, and the hidden word in the console
             DisplayHangman(gameWord,level);
@@ -143,7 +145,7 @@ public class HangMan {
         }
 
         //Shaves down our original, 130+ word list into 9 filled with only words of the appropriate length, then randomly selects one of those words
-        gameWord = BucketizeWords(words, wordLengthMax,limit);
+        gameWord = BucketizeWords(words, wordLengthMax,limit).Trim();
 
         //Calculate # of tries (countdown) based on selected difficulty     
         countdown = (int)(gameWord.Count() * multiplier);
@@ -307,8 +309,8 @@ public class HangMan {
         } else {
             //Format the hidden word to reveal users correct guesses spaced neatly
             for (int i = 0; i < gameWord.Count(); i++){
-                //Ensures end of word does have any extra whitespace
-                secret = (i == gameWord.Count()-1) ? "*" : "* ";
+                //Format the hidden word to reveal users correct guesses spaced neatly
+                secret = (i == gameWord.Count()-1) ? Char.ToString(gameWord[i]) : Char.ToString(gameWord[i]) + " ";
                 hiddenWord += secret;
             }
         }
