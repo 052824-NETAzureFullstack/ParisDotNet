@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*
+Hangman - Play a game of hangman with the computer. 
+A "random" word is chosen, and the number of letters is displayed. 
+The player has to guess letters, which are revealed in the word if correct. 
+Incorrect guessed can be counted, or used as a countdown against the player. 
+
+Challenge: Use formatting in the console display to "update" the display without moving down the terminal output. 
+Keep the hidden word, previously guessed letters, and the players input in fixed locations on screen.
+*/
+
+
+using System;
 using System.Net.NetworkInformation;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
@@ -223,7 +234,7 @@ public class HangMan {
             guesses += guess + " ";
         }
 
-        Console.WriteLine($"ERROR: {error}"); 
+        Console.WriteLine($"ERROR: {error}\n"); 
         Console.WriteLine($"COUNTDOWN: {countdown}\t  \tWORD: {hiddenWord}\t   \tGUESSED: {guesses}");
         Console.Write($"Enter your guess: ");
         input = Console.ReadLine();
@@ -233,7 +244,7 @@ public class HangMan {
 
         if (error == "NONE"){
             allGuesses.Add(Char.Parse(input));
-            IsGuessCorrect(input, gameWord);
+            IsGuessCorrect(input, gameWord, hiddenWord);
 
             countdown--;
         }
@@ -249,17 +260,19 @@ public class HangMan {
         if (userInput.Any(char.IsDigit)){
             error = "Guesses should only contain letters, not numbers.";
             
-        } else if (userInput.Length != 1 || userInput.Length != gameWord.Count()){
+        } else if (userInput.Length != 1 && userInput.Length != gameWord.Count()){
             error = "Guesses must either only be a single letter or the entire word. Please try again...";
 
         } else if (allGuesses.Contains(char.Parse(userInput))){
             error = "Guesses must be unique! Please avoid re-guessing previous guesses and try again...";
+        } else {
+            error = "NONE";
         }
 
         return error;
     }
 
-    public static void IsGuessCorrect(string userInput, string gameWord){
+    public static void IsGuessCorrect(string userInput, string gameWord, string hiddenWord){
         //Ensure that case sensitivity will not affect game results
         gameWord = gameWord.ToLower();
         userInput = userInput.ToLower();
@@ -290,12 +303,3 @@ public class HangMan {
     }
 }
 
-/*
-Hangman - Play a game of hangman with the computer. 
-A "random" word is chosen, and the number of letters is displayed. 
-The player has to guess letters, which are revealed in the word if correct. 
-Incorrect guessed can be counted, or used as a countdown against the player. 
-
-Challenge: Use formatting in the console display to "update" the display without moving down the terminal output. 
-Keep the hidden word, previously guessed letters, and the players input in fixed locations on screen.
-*/
