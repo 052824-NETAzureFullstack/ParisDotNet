@@ -32,10 +32,8 @@ public class HangMan {
     public static void Main(string[] args){
         List<string> words;
         string error = "NONE";
-        string hiddenWord = "";
-
+        string hiddenWord;
         int difficulty;
-        int countdown;
 
         //Removes definitions, white spaces, and duplicates from .txt file
         words = PreProcessTxtFile("-");
@@ -44,14 +42,11 @@ public class HangMan {
         difficulty = DifficultySelector();
 
         //Divvy the words into buckets (lists) of 9 words a piece based on word length (easy <= 9 words, med <= 12 words, and hard <= 17 words), return game word
-        (string gameWord, string level, double multiplier) = GenerateGameWord(words,difficulty);
+        (string gameWord, string level, int countdown) = GenerateGameWord(words,difficulty);
 
-
-
-        //Calculate # of tries based on selected difficulty and hide word
-        GamePrep();
+        //Hides the game word
+        hiddenWord = EncryptWord(gameWord);
     
-
         while(countdown > 0){
             Console.Clear(); 
 
@@ -118,7 +113,7 @@ public class HangMan {
         Console.WriteLine($"max = {max}");
     }
 
-    public static (string,string, double) GenerateGameWord(List<string> words, int difficulty){
+    public static (string,string, int) GenerateGameWord(List<string> words, int difficulty){
         int limit = 9;
         int wordLengthMax;
         string level;
@@ -295,11 +290,14 @@ public class HangMan {
         }
     }
 
-    public static void GamePrep(string userInput, string gameWord){
+    public static string EncryptWord(string gameWord){
+        string hiddenWord = "";
 
-            for (int i = 0; i < gameWord.Count(); i++){
-                hiddenWord += "* ";
-            }
+        for (int i = 0; i < gameWord.Count(); i++){
+            hiddenWord += "* ";
+        }
+
+        return hiddenWord;
     }
 }
 
