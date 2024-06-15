@@ -264,15 +264,18 @@ public class HangMan {
         gameWord = gameWord.ToLower();
         userInput = userInput.ToLower();
         
-        //Update hidden word
-        //if hidden word == gameWord, user wins
         if(gameWord.Contains(userInput)){
+            //Update hidden word(s) using index
+            //countdown--;
             Console.WriteLine("Index of correct guess: ", gameWord.IndexOf(userInput));
         } else if (userInput == gameWord){
-            //No need to update countdown
+            //No need to update countdown?
+            //Update hidden word(s) using index
             //USER WINS!
         } else {
             //If users guess was completely incorrect...
+            //countdown--;
+            //continue
         }
     }
 
