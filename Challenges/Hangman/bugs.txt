@@ -1,5 +1,5 @@
 Bugs:
 
-PreprocessTxtFile(): Try/Catch - while loop (the last line == null which is the breaking condition but also seems to thrown an exception...             //ERROR: Exception: Object reference not set to an instance of an object.
+-When user picks a difficulty, BucketizeWords() selects only the first 9/130+ words that meet the difficulty criteria... the problem is that this list will consist of the same 9 words every time. Need to randomize this too.
 
 
