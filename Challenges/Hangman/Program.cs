@@ -32,7 +32,7 @@ public class HangMan {
 
     public static void Main(string[] args){
         List<string> words;
-        bool showError = false;
+        string error = "NONE";
         int difficulty;
         int countdown;
 
@@ -55,7 +55,7 @@ public class HangMan {
             DisplayHangman(gameWord,level);
 
             //Allows user to guess word until countdown == 0
-            (countdown,showError) = RunGame(gameWord,countdown, showError);
+            (countdown,error) = RunGame(gameWord,countdown, error);
         }
     }
 
@@ -231,7 +231,7 @@ public class HangMan {
         Console.WriteLine(hangman);
     }
 
-    public static (int,bool) RunGame(string gameWord, int countdown, bool showError){
+    public static (int,string) RunGame(string gameWord, int countdown, string error){
         string guesses = "";
         string hiddenWord = "";
         string input;
@@ -244,17 +244,23 @@ public class HangMan {
             hiddenWord += "* ";
         }
 
-        if (showError){
-            Console.WriteLine("ERROR: Input type should either be only a single letter or the entire word, Please try again...\n"); 
-        } else {
-            Console.WriteLine("ERROR: None\n");
-        }
-
+        Console.WriteLine($"ERROR: {error}"); 
         Console.WriteLine($"COUNTDOWN: {countdown}\t  \tWORD: {hiddenWord}\t   \tGUESSED: {guesses}");
         Console.Write($"Enter your guess: ");
         input = Console.ReadLine();
 
+        //Perform validation to ensure user input is a single character or an attempt at the entire word
+        error = IsValidGuess(input, gameWord);
+
         if (!input.Any(char.IsDigit) && (input.Length == 1 || input.Length == gameWord.Count())){
+
+            if (allGuesses.Contains(input)){
+
+            }
+            if(gameWord.Contains(input) || input == gameWord){
+                result = ;
+
+            }
             allGuesses.Add(Char.Parse(input));
             countdown--;
             showError = false;
@@ -262,21 +268,21 @@ public class HangMan {
             showError = true;
         }
 
-        return (countdown, showError);
+        return (countdown, error);
     }
 
-    public static bool IsValidGuess(string userInput){
+    public static string IsValidGuess(string userInput, string gameWord){
+        string error = "NONE";
 
-
-        try{
-            
-
-        } catch(Exception){
-            
-            return false;
+        if (userInput.Any(char.IsDigit)){
+            error = "Guesses should only contain letters, not numbers.";
         }
 
-        return true;
+        if (userInput.Length != 1 || userInput.Length != gameWord.Count()){
+            error = "Guesses must either only be a single letter or the entire word. Please try again...";
+        }
+
+        return error;
     }
 }
 
