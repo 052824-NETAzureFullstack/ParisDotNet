@@ -244,9 +244,7 @@ public class HangMan {
 
         if (error == "NONE"){
             allGuesses.Add(Char.Parse(input));
-            IsGuessCorrect(input, gameWord, hiddenWord);
-
-            countdown--;
+            IsGuessCorrect(input, gameWord, hiddenWord, countdown);
         }
 
         
@@ -272,40 +270,24 @@ public class HangMan {
         return error;
     }
 
-    public static void IsGuessCorrect(string userInput, string gameWord, string hiddenWord){
-        List<int> occurrences = new List<int>();
-        string[] hiddenNoSpace = hiddenWord.Split(' ');
-        string revealedWord = "";
-
+    public static (string,bool) IsGuessCorrect(string userInput, string gameWord, string hiddenWord, int countdown){
         //Ensure that case sensitivity will not affect game results
         gameWord = gameWord.ToLower();
         userInput = userInput.ToLower();
         
         if(gameWord.Contains(userInput)){
-            //Find all occurrences of the correct user guess in gamewWord string by index
-            for (int i = 0; i < gameWord.Count(); i++){
-                occurrences.Add(gameWord.IndexOf(userInput));
-            }
+            hiddenWord = RevealHiddenWord(userInput, gameWord, hiddenWord);
+            countdown--;
 
-            //Reveal correct user input at the appropriate index within the hidden word
-            foreach (int index in occurrences){
-                hiddenNoSpace[index] = userInput;
-            }
-            
-            EncryptWord(String.Concat(hiddenNoSpace),true);
-
-
-            //Update hidden word(s) using index
-            //countdown--;
         } else if (userInput == gameWord){
-            //No need to update countdown?
-            //Update hidden word(s) using index
+            hiddenWord = RevealHiddenWord(userInput, gameWord, hiddenWord);
             //USER WINS!
         } else {
-            //If users guess was completely incorrect...
-            //countdown--;
-            //continue
+            //If users guess was valid but completely incorrect...
+            countdown--;
         }
+
+        return (hiddenWord,(hiddenWord == gameWord));
     }
 
     public static string EncryptWord(string gameWord, bool partiallyRevelead){
@@ -325,5 +307,24 @@ public class HangMan {
 
         return hiddenWord;
     }
+
+    public static string RevealHiddenWord(string userInput, string gameWord, string hiddenWord){
+        List<int> occurrences = new List<int>();
+        string[] hiddenNoSpace = hiddenWord.Split(' ');
+
+        //Find all occurrences of the correct user guess in gamewWord string by index
+        for (int i = 0; i < gameWord.Count(); i++){
+            occurrences.Add(gameWord.IndexOf(userInput));
+        }
+
+        //Reveal correct user input at the appropriate index within the hidden word
+        foreach (int index in occurrences){
+            hiddenNoSpace[index] = userInput;
+        }
+        
+        //Reformat hidden word so that each character is neatly spaced
+        return EncryptWord(String.Concat(hiddenNoSpace),true);
+    }
+
 }
 
